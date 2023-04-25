@@ -5,7 +5,8 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import java.util.concurrent.TimeUnit;
+import java.time.Duration;
+
 
 public class WebdriverSetting {
 
@@ -13,15 +14,15 @@ public class WebdriverSetting {
 
     @BeforeEach
     public void setUp() {
+
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--remote-allow-origins=*");
-
         System.setProperty("webdriver.chrome.driver", "C:\\webdrivers\\chromedriver.exe");
         driver = new ChromeDriver(options);
-        WebDriver.Timeouts timeouts = driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        WebDriver.Timeouts timeouts = driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
     }
 
-//    @AfterEach
-//    public void close() { driver.quit(); }
+    @AfterEach
+    public void close() { driver.quit(); }
 
 }

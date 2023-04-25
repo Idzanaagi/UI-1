@@ -79,9 +79,36 @@ public class LoginTest extends WebdriverSetting {
         Login login = new Login(driver);
         driver.get(loginPageUrl);
         login.fillUsername(invalidLengthValue);
-        login.fillPassword(invalidLengthValue);
+        login.fillPassword(validPassword);
         login.fillFormlyUsername(validUsernameDescription);
         login.removeFocusFromLastField();
+        Assertions.assertEquals("true", login.getAttributeBtnLogin());
+    }
+
+    @Test
+    public void loginWithEmptyFiled() {
+
+        Login login = new Login(driver);
+        driver.get(loginPageUrl);
+        login.fillUsername(validUsername);
+        Assertions.assertEquals("true", login.getAttributeBtnLogin());
+    }
+
+    @Test
+    public void loginWithSeveralEmptyFileds() {
+
+        Login login = new Login(driver);
+        driver.get(loginPageUrl);
+        login.fillUsername(validUsername);
+        login.fillFormlyUsername(validUsernameDescription);
+        Assertions.assertEquals("true", login.getAttributeBtnLogin());
+    }
+
+    @Test
+    public void loginWithAllEmptyFileds() {
+
+        Login login = new Login(driver);
+        driver.get(loginPageUrl);
         Assertions.assertEquals("true", login.getAttributeBtnLogin());
     }
 
@@ -106,7 +133,6 @@ public class LoginTest extends WebdriverSetting {
         driver.get(loginPageUrl);
         login.fillUsername(invalidLengthValue);
         Assertions.assertEquals(login.getUsernameErrorMessage(), "Your username must be between 3 and 50 characters long");
-        Assertions.assertEquals("true", login.getAttributeBtnLogin());
     }
 
     @Test
@@ -116,7 +142,6 @@ public class LoginTest extends WebdriverSetting {
         driver.get(loginPageUrl);
         login.fillPassword(invalidLengthValue);
         Assertions.assertEquals(login.getPasswordErrorMessage(), "Your username must be between 3 and 100 characters long");
-        Assertions.assertEquals("true", login.getAttributeBtnLogin());
     }
 
     @Test

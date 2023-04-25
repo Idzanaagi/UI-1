@@ -1,0 +1,85 @@
+id: Login-1 (loginSuccessfully)
+Заголовок: успешно залогиниться
+Шаги:
+1. открыть страницу логина (https://www.way2automation.com/angularjs-protractor/registeration/#/login)
+2. Заполнить все поля валидными значениями (поле Username - angular, Password - password, Username * - username)
+3. нажать кнопку Login
+Ожидаемый результат:
+1. происходит редирект и открывается страница Home (https://www.way2automation.com/angularjs-protractor/registeration/#/)
+2. на странице Home есть сслыка Logout
+
+id: Login-2 (loginWithInvalidUsername)
+Заголовок: логин с невалидным именем пользователя
+Шаги:
+1. открыть страницу логина (https://www.way2automation.com/angularjs-protractor/registeration/#/login)
+2. заполнить поле Username невалидным значением (например, test)
+3. заполнить оставшиеся поля валидными значениями (Password - password, Username * - username)
+4. нажать кнопку Login
+Ожидаемый результат:
+1. пользователь остаётся на странице логина
+2. над формой появляется предупрждение "Username or password is incorrect"
+
+id: Login-3 (loginWithInvalidPassword)
+Заголовок: логин с невалидным паролем
+Шаги:
+1. открыть страницу логина (https://www.way2automation.com/angularjs-protractor/registeration/#/login)
+2. заполнить поле Password невалидным значением (например, test)
+3. заполнить оставшиеся поля валидными значениями (Username - angular, Username * - username)
+4. нажать кнопку Login
+Ожидаемый результат:
+1. пользователь остаётся на странице логина
+2. над формой появляется предупрждение "Username or password is incorrect"
+
+id: Login-4 (loginWithInvalidLengthValues)
+Заголовок: кнопка Login не активна при некорректных данных
+Шаги:
+1. открыть страницу логина (https://www.way2automation.com/angularjs-protractor/registeration/#/login)
+2. заполнить любые 2 поля значением меньше 3-х символов (например, te)
+3. заполнить оставшееся поле валидным значением (поле Username - angular, Password - password, Username * - username)
+4. убрать фокус с полей формы
+Ожидаемый результат:
+1. кнопка Login не активна (имеет атрибут disabled)
+
+id: LogOut-1 (logoutSuccessfully)
+Заголовок: кнопка logout открывает страницу логина
+Шаги:
+1. открыть страницу логина (https://www.way2automation.com/angularjs-protractor/registeration/#/login)
+2. Заполнить все поля валидными значениями (поле Username - angular, Password - password, Username * - username)
+3. нажать кнопку login
+4. на открывшейся странице нажать сслыку logout
+Ожидаемый результат:
+1. происходит редирект и открывается страница формы логина (https://www.way2automation.com/angularjs-protractor/registeration/#/login)
+
+id: ErrorMessage-1 (usernameErrorMessageWithInvalidLengthValues)
+Заголовок: при недостаточной длине значения username появлется сообщение об ошибке
+Шаги:
+1. открыть страницу логина (https://www.way2automation.com/angularjs-protractor/registeration/#/login)
+2. заполнить поле Username значением меньше 3-х символов (например, te)
+Ожидаемый результат:
+1. под полем Username появлется сообщение "Your username must be between 3 and 50 characters long"
+2. кнопка Login не активна (имеет атрибут disabled)
+
+id: ErrorMessage-2 (passwordErrorMessageWithInvalidLengthValues)
+Заголовок: при недостаточной длине password появлется сообщение об ошибке
+Шаги:
+1. открыть страницу логина (https://www.way2automation.com/angularjs-protractor/registeration/#/login)
+2. заполнить поле Username значением меньше 3-х символов
+Ожидаемый результат:
+1. под полем Username появлется сообщение "Your username must be between 3 and 100 characters long"
+2. кнопка Login не активна (имеет атрибут disabled)
+
+id: overflowField-1 (overflowUsernameField)
+Заголовок: поле username не принимает больше 50 символов
+Шаги:
+1. открыть страницу логина (https://www.way2automation.com/angularjs-protractor/registeration/#/login)
+2. Заполнить поле username набором символов, длина которого больше 50 (например, qlicyaykldhnpvdsmpdkblhblixgghmcknfqhodrorcnkuqhsdj)
+Ожидаемый результат:
+1. поле username содержит только 50 символов
+
+id: overflowField-2 (overflowPasswordField)
+Заголовок: поле password не принимает больше 100 символов
+Шаги:
+1. открыть страницу логина (https://www.way2automation.com/angularjs-protractor/registeration/#/login)
+2. Заполнить поле password набором символов, длина которого больше 100 (например, qlicyaykldhnpvdsmpdkblhblixgghmcknfqhodrorcnkuqhsdjqlicyaykldhnpvdsmpdkblhblixgghmcknfqhodrorcnkuqhsdj)
+Ожидаемый результат:
+1. поле username содержит только 50 символов

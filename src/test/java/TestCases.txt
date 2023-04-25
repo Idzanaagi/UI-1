@@ -6,7 +6,7 @@ id: Login-1 (loginSuccessfully)
 3. нажать кнопку Login
 Ожидаемый результат:
 1. происходит редирект и открывается страница Home (https://www.way2automation.com/angularjs-protractor/registeration/#/)
-2. на странице Home есть сслыка Logout
+2. на странице Home есть ссылка с текстом Logout
 
 id: Login-2 (loginWithInvalidUsername)
 Заголовок: логин с невалидным именем пользователя
@@ -31,12 +31,35 @@ id: Login-3 (loginWithInvalidPassword)
 2. над формой появляется предупрждение "Username or password is incorrect"
 
 id: Login-4 (loginWithInvalidLengthValues)
-Заголовок: кнопка Login не активна при некорректных данных
+Заголовок: кнопка Login не активна при поле, заполненным значением с неккоретной длиной
 Шаги:
 1. открыть страницу логина (https://www.way2automation.com/angularjs-protractor/registeration/#/login)
-2. заполнить любые 2 поля значением меньше 3-х символов (например, te)
-3. заполнить оставшееся поле валидным значением (поле Username - angular, Password - password, Username * - username)
+2. заполнить любое поле значением меньше 3-х символов (например, te)
+3. заполнить оставшиеся поля валидным значением (поле Username - angular, Password - password, Username * - username)
 4. убрать фокус с полей формы
+Ожидаемый результат:
+1. кнопка Login не активна (имеет атрибут disabled)
+
+id: Login-5 (loginWithEmptyFiled)
+Заголовок: кнопка Login не активна при двух незаполненных полях
+Шаги:
+1. открыть страницу логина (https://www.way2automation.com/angularjs-protractor/registeration/#/login)
+2. заполнить любое поле валидными значениеми (поле Username - angular, Password - password, Username * - username)
+Ожидаемый результат:
+1. кнопка Login не активна (имеет атрибут disabled)
+
+id: Login-6 (loginWithSeveralEmptyFileds)
+Заголовок: кнопка Login не активна при одном незаполненном поле
+Шаги:
+1. открыть страницу логина (https://www.way2automation.com/angularjs-protractor/registeration/#/login)
+2. заполнить любые 2 поля валидными значениеми (поле Username - angular, Password - password, Username * - username)
+Ожидаемый результат:
+1. кнопка Login не активна (имеет атрибут disabled)
+
+id: Login-7 (loginWithAllEmptyFiled)
+Заголовок: кнопка Login не активна при двух незаполненных полях
+Шаги:
+1. открыть страницу логина (https://www.way2automation.com/angularjs-protractor/registeration/#/login)
 Ожидаемый результат:
 1. кнопка Login не активна (имеет атрибут disabled)
 
@@ -57,7 +80,6 @@ id: ErrorMessage-1 (usernameErrorMessageWithInvalidLengthValues)
 2. заполнить поле Username значением меньше 3-х символов (например, te)
 Ожидаемый результат:
 1. под полем Username появлется сообщение "Your username must be between 3 and 50 characters long"
-2. кнопка Login не активна (имеет атрибут disabled)
 
 id: ErrorMessage-2 (passwordErrorMessageWithInvalidLengthValues)
 Заголовок: при недостаточной длине password появлется сообщение об ошибке
@@ -66,7 +88,6 @@ id: ErrorMessage-2 (passwordErrorMessageWithInvalidLengthValues)
 2. заполнить поле Username значением меньше 3-х символов
 Ожидаемый результат:
 1. под полем Username появлется сообщение "Your username must be between 3 and 100 characters long"
-2. кнопка Login не активна (имеет атрибут disabled)
 
 id: overflowField-1 (overflowUsernameField)
 Заголовок: поле username не принимает больше 50 символов
@@ -82,4 +103,4 @@ id: overflowField-2 (overflowPasswordField)
 1. открыть страницу логина (https://www.way2automation.com/angularjs-protractor/registeration/#/login)
 2. Заполнить поле password набором символов, длина которого больше 100 (например, qlicyaykldhnpvdsmpdkblhblixgghmcknfqhodrorcnkuqhsdjqlicyaykldhnpvdsmpdkblhblixgghmcknfqhodrorcnkuqhsdj)
 Ожидаемый результат:
-1. поле username содержит только 50 символов
+1. поле password содержит только 100 символов

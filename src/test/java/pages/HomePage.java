@@ -15,18 +15,13 @@ public class HomePage {
     public static WebDriver driver;
 
 
-    public HomePage(WebDriver driver) {
-        HomePage.driver = driver;
-        PageFactory.initElements(driver, this);
-    }
-
-
     @FindBy(xpath = "//a")
     private WebElement logOut;
 
 
-    public static HomePage using(WebDriver driver) {
-        return new HomePage(driver);
+    public HomePage(WebDriver driver) {
+        HomePage.driver = driver;
+        PageFactory.initElements(driver, this);
     }
 
     public String getLogoutLinkText() {
@@ -34,12 +29,12 @@ public class HomePage {
     }
 
     public void clickLogoutBtn() {
-        this.logOut.click();
+        logOut.click();
     }
 
-    public void waitHomePageLoad(String url) {
+    public void waitHomePageLoad() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        wait.until(ExpectedConditions.urlToBe(url));
+        wait.until(ExpectedConditions.urlToBe("https://www.way2automation.com/angularjs-protractor/registeration/#/"));
     }
 
 }

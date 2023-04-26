@@ -17,12 +17,6 @@ public class LoginPage {
     public static WebDriver driver;
 
 
-    public LoginPage(WebDriver driver) {
-        LoginPage.driver = driver;
-        PageFactory.initElements(driver, this);
-    }
-
-
     @FindBy(id = "username")
     private WebElement usernameField;
 
@@ -35,21 +29,22 @@ public class LoginPage {
     @FindBy(className = "btn")
     private WebElement btnLogin;
 
-    @FindBy(xpath = "//*[@id=\"username\"]/following::div[1]/div")
+    @FindBy(xpath = "//*[contains(text(),'3 and 50')]")
     private WebElement usernameErrorMessage;
 
-    @FindBy(xpath = "//*[@id=\"password\"]/following::div[1]/div")
+    @FindBy(xpath = "//*[contains(text(),'3 and 100')]")
     private WebElement passwordErrorMessage;
 
-    @FindBy(xpath = "/html/body/div[3]/div/div/div/div[2]")
+    @FindBy(className = "alert-danger")
     private WebElement failedLoginErrorMessage;
 
     @FindBy(id = "formly_1_input_username_0_description")
     private WebElement usernameDescriptionTitle;
 
 
-    public static LoginPage using(WebDriver driver) {
-        return new LoginPage(driver);
+    public LoginPage(WebDriver driver) {
+        LoginPage.driver = driver;
+        PageFactory.initElements(driver, this);
     }
 
     public LoginPage launch() {
@@ -63,12 +58,12 @@ public class LoginPage {
     }
 
     public LoginPage fillPassword(String value) {
-        this.passwordField.sendKeys(value);
+        passwordField.sendKeys(value);
         return this;
     }
 
     public LoginPage fillUsernameDescription(String value) {
-        this.usernameDescriptionField.sendKeys(value);
+        usernameDescriptionField.sendKeys(value);
         return this;
     }
 
@@ -78,40 +73,40 @@ public class LoginPage {
     }
 
     public String getFailedLoginMessage() {
-        return this.failedLoginErrorMessage.getText();
+        return failedLoginErrorMessage.getText();
     }
 
-    public String getBtnLoginStatus() {
-        return this.btnLogin.getAttribute("disabled");
+    public boolean getBtnLoginStatus() {
+        return btnLogin.isEnabled();
     }
 
     public void removeFocusFromLastField() {
-        this.usernameDescriptionField.sendKeys(Keys.TAB);
+        usernameDescriptionField.sendKeys(Keys.TAB);
     }
 
     public String getUsernameErrorMessage() {
-        return this.usernameErrorMessage.getText();
+        return usernameErrorMessage.getText();
     }
 
     public String getPasswordErrorMessage() {
-        return this.passwordErrorMessage.getText();
+        return passwordErrorMessage.getText();
     }
 
     public String getUsernameInputValue() {
-        return this.usernameField.getAttribute("value");
+        return usernameField.getAttribute("value");
     }
 
     public String getPasswordInputValue() {
-        return this.passwordField.getAttribute("value");
+        return passwordField.getAttribute("value");
     }
 
     public String getUsernameDescriptionTitleColor() {
-        return this.usernameDescriptionTitle.getCssValue("color");
+        return usernameDescriptionTitle.getCssValue("color");
     }
 
-    public void waitLoginPageLoad(String url) {
+    public void waitLoginPageLoad() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        wait.until(ExpectedConditions.urlToBe(url));
+        wait.until(ExpectedConditions.urlToBe("https://www.way2automation.com/angularjs-protractor/registeration/#/login"));
     }
 
 }

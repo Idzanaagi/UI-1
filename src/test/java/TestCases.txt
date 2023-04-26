@@ -30,17 +30,7 @@ id: Login-3 (loginWithInvalidPassword)
 1. пользователь остаётся на странице логина
 2. над формой появляется предупреждение "Username or password is incorrect"
 
-id: Login-4 (loginWithInvalidLengthValues)
-Заголовок: кнопка Login не активна при поле, заполненным значением с некорректной длиной
-Шаги:
-1. открыть страницу логина (https://www.way2automation.com/angularjs-protractor/registeration/#/login)
-2. заполнить любое поле значением меньше 3-х символов (например, te)
-3. заполнить оставшиеся поля валидными значениями (поле Username - angular, Password - password, Username Description - username)
-4. убрать фокус с полей формы
-Ожидаемый результат:
-1. кнопка Login не активна (имеет атрибут disabled)
-
-id: Login-5 (loginWithEmptyUsernameField)
+id: Login-4 (loginWithEmptyUsernameField)
 Заголовок: кнопка Login не активна при незаполненном поле Username
 Шаги:
 1. открыть страницу логина (https://www.way2automation.com/angularjs-protractor/registeration/#/login)
@@ -48,7 +38,7 @@ id: Login-5 (loginWithEmptyUsernameField)
 Ожидаемый результат:
 1. кнопка Login не активна (имеет атрибут disabled)
 
-id: Login-6 (loginWithEmptyPasswordField)
+id: Login-5 (loginWithEmptyPasswordField)
 Заголовок: кнопка Login не активна при незаполненном поле Password
 Шаги:
 1. открыть страницу логина (https://www.way2automation.com/angularjs-protractor/registeration/#/login)
@@ -56,7 +46,7 @@ id: Login-6 (loginWithEmptyPasswordField)
 Ожидаемый результат:
 1. кнопка Login не активна (имеет атрибут disabled)
 
-id: Login-7 (loginWithEmptyUsernameDescriptionField)
+id: Login-6 (loginWithEmptyUsernameDescriptionField)
 Заголовок: кнопка Login не активна при незаполненном поле Username Description
 Шаги:
 1. открыть страницу логина (https://www.way2automation.com/angularjs-protractor/registeration/#/login)

@@ -11,13 +11,10 @@ import java.time.Duration;
 
 public class HomePage {
 
-
     public static WebDriver driver;
-
 
     @FindBy(xpath = "//a")
     private WebElement logOut;
-
 
     public HomePage(WebDriver driver) {
         HomePage.driver = driver;
@@ -36,5 +33,4 @@ public class HomePage {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         wait.until(ExpectedConditions.urlToBe("https://www.way2automation.com/angularjs-protractor/registeration/#/"));
     }
-
 }

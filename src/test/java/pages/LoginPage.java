@@ -7,15 +7,12 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
 import java.time.Duration;
 
 
 public class LoginPage {
 
-
     public static WebDriver driver;
-
 
     @FindBy(id = "username")
     private WebElement usernameField;
@@ -29,10 +26,10 @@ public class LoginPage {
     @FindBy(className = "btn")
     private WebElement btnLogin;
 
-    @FindBy(xpath = "//*[contains(text(),'3 and 50')]")
+    @FindBy(css = "[ng-messages='form.username.$error']")
     private WebElement usernameErrorMessage;
 
-    @FindBy(xpath = "//*[contains(text(),'3 and 100')]")
+    @FindBy(css = "[ng-messages='form.password.$error']")
     private WebElement passwordErrorMessage;
 
     @FindBy(className = "alert-danger")
@@ -40,7 +37,6 @@ public class LoginPage {
 
     @FindBy(id = "formly_1_input_username_0_description")
     private WebElement usernameDescriptionTitle;
-
 
     public LoginPage(WebDriver driver) {
         LoginPage.driver = driver;
@@ -108,5 +104,4 @@ public class LoginPage {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         wait.until(ExpectedConditions.urlToBe("https://www.way2automation.com/angularjs-protractor/registeration/#/login"));
     }
-
 }

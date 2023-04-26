@@ -17,22 +17,6 @@ import pages.HomePage;
 
 public class LoginTest {
 
-
-    @BeforeEach
-    public void setUp() {
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("--remote-allow-origins=*");
-        driver = new ChromeDriver(options);
-        System.setProperty("webdriver.chrome.driver", Objects.requireNonNull(getClass().getClassLoader().getResource("drivers/chromedriver.exe")).getFile());
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-    }
-
-    @AfterEach
-    public void close() {
-        driver.quit();
-    }
-
-
     public static WebDriver driver;
 
     private final String loginPageUrl = "https://www.way2automation.com/angularjs-protractor/registeration/#/login";
@@ -47,6 +31,19 @@ public class LoginTest {
 
     private final String invalidLengthValue = "te";
 
+    @BeforeEach
+    public void setUp() {
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--remote-allow-origins=*");
+        driver = new ChromeDriver(options);
+        System.setProperty("webdriver.chrome.driver", Objects.requireNonNull(getClass().getClassLoader().getResource("drivers/chromedriver.exe")).getFile());
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+    }
+
+    @AfterEach
+    public void close() {
+        driver.quit();
+    }
 
     @Test
     public void loginSuccessfully() {
@@ -168,5 +165,4 @@ public class LoginTest {
                 .fillPassword("qlicyaykldhnpvdsmpdkblhblixgghmcknfqhodrorcnkuqhsdjqlicyaykldhnpvdsmpdkblhblixgghmcknfqhodrorcnkuqhsdj");
         Assertions.assertEquals(loginPage.getPasswordInputValue().length(), 100);
     }
-
 }

@@ -1,17 +1,39 @@
 package tests;
 
-import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
+import org.junit.jupiter.api.Assertions;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.support.Color;
 import java.time.Duration;
+import java.util.Objects;
 
-import pages.Login;
-import pages.Home;
-import utils.WebdriverSetting;
+import pages.LoginPage;
+import pages.HomePage;
 
 
-public class LoginTest extends WebdriverSetting {
+public class LoginTest {
+
+
+    public static WebDriver driver;
+
+
+    @BeforeEach
+    public void setUp() {
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--remote-allow-origins=*");
+        driver = new ChromeDriver(options);
+        System.setProperty("webdriver.chrome.driver", Objects.requireNonNull(getClass().getClassLoader().getResource("drivers/chromedriver.exe")).getFile());
+        WebDriver.Timeouts timeouts = driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+    }
+
+    @AfterEach
+    public void close() {
+        driver.quit();
+    }
 
 
     private final String loginPageUrl = "https://www.way2automation.com/angularjs-protractor/registeration/#/login";
@@ -29,98 +51,89 @@ public class LoginTest extends WebdriverSetting {
 
     @Test
     public void loginSuccessfully() {
-
-        Login login = new Login(driver);
-        Home home = new Home(driver);
+        LoginPage login = new LoginPage(driver);
+        HomePage home = new HomePage(driver);
         driver.get(loginPageUrl);
         login.fillUsername(validUsername);
         login.fillPassword(validPassword);
-        login.fillFormlyUsername(validUsernameDescription);
+        login.fillUsernameDescription(validUsernameDescription);
         login.clickLoginBtn();
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        wait.until(ExpectedConditions.urlToBe("https://www.way2automation.com/angularjs-protractor/registeration/#/"));
-        Assertions.assertEquals(driver.getCurrentUrl(), "https://www.way2automation.com/angularjs-protractor/registeration/#/");
+        HomePage.waitHomePageLoad("https://www.way2automation.com/angularjs-protractor/registeration/#/");
         Assertions.assertEquals(home.getLogoutLinkText(), "Logout");
     }
 
     @Test
     public void loginWithInvalidUsername() {
-
-        Login login = new Login(driver);
+        LoginPage login = new LoginPage(driver);
         driver.get(loginPageUrl);
         login.fillUsername(invalidValue);
         login.fillPassword(validPassword);
-        login.fillFormlyUsername(validUsernameDescription);
+        login.fillUsernameDescription(validUsernameDescription);
         login.clickLoginBtn();
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        wait.until(ExpectedConditions.urlToBe(loginPageUrl));
+        LoginPage.waitLoginPageLoad(loginPageUrl);
         Assertions.assertEquals(driver.getCurrentUrl(), loginPageUrl);
         Assertions.assertEquals(login.getFailedLoginMessage(), "Username or password is incorrect");
     }
 
     @Test
     public void loginWithInvalidPassword() {
-
-        Login login = new Login(driver);
+        LoginPage login = new LoginPage(driver);
         driver.get(loginPageUrl);
         login.fillUsername(validUsername);
         login.fillPassword(invalidValue);
-        login.fillFormlyUsername(validUsernameDescription);
+        login.fillUsernameDescription(validUsernameDescription);
         login.clickLoginBtn();
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        wait.until(ExpectedConditions.urlToBe(loginPageUrl));
+        LoginPage.waitLoginPageLoad(loginPageUrl);
         Assertions.assertEquals(driver.getCurrentUrl(), loginPageUrl);
         Assertions.assertEquals(login.getFailedLoginMessage(), "Username or password is incorrect");
     }
 
     @Test
     public void loginWithInvalidLengthValues() {
-
-        Login login = new Login(driver);
+        LoginPage login = new LoginPage(driver);
         driver.get(loginPageUrl);
         login.fillUsername(invalidLengthValue);
         login.fillPassword(validPassword);
-        login.fillFormlyUsername(validUsernameDescription);
+        login.fillUsernameDescription(validUsernameDescription);
         login.removeFocusFromLastField();
-        Assertions.assertEquals("true", login.getAttributeBtnLogin());
+        Assertions.assertEquals("true", login.getBtnLoginStatus());
     }
 
     @Test
-    public void loginWithEmptyFiled() {
+    public void loginWithEmptyUsernameField() {
+        LoginPage login = new LoginPage(driver);
+        driver.get(loginPageUrl);
+        login.fillPassword(validPassword);
+        login.fillUsernameDescription(validUsernameDescription);
+        Assertions.assertEquals("true", login.getBtnLoginStatus());
+    }
 
-        Login login = new Login(driver);
+    @Test
+    public void loginWithEmptyPasswordField() {
+        LoginPage login = new LoginPage(driver);
         driver.get(loginPageUrl);
         login.fillUsername(validUsername);
-        Assertions.assertEquals("true", login.getAttributeBtnLogin());
+        login.fillUsernameDescription(validUsernameDescription);
+        Assertions.assertEquals("true", login.getBtnLoginStatus());
     }
 
     @Test
-    public void loginWithSeveralEmptyFileds() {
-
-        Login login = new Login(driver);
+    public void loginWithEmptyUsernameDescriptionField() {
+        LoginPage login = new LoginPage(driver);
         driver.get(loginPageUrl);
         login.fillUsername(validUsername);
-        login.fillFormlyUsername(validUsernameDescription);
-        Assertions.assertEquals("true", login.getAttributeBtnLogin());
-    }
-
-    @Test
-    public void loginWithAllEmptyFileds() {
-
-        Login login = new Login(driver);
-        driver.get(loginPageUrl);
-        Assertions.assertEquals("true", login.getAttributeBtnLogin());
+        login.fillPassword(validPassword);
+        Assertions.assertEquals("true", login.getBtnLoginStatus());
     }
 
     @Test
     public void logoutSuccessfully()  {
-
-        Login login = new Login(driver);
-        Home home = new Home(driver);
+        LoginPage login = new LoginPage(driver);
+        HomePage home = new HomePage(driver);
         driver.get(loginPageUrl);
         login.fillUsername(validUsername);
         login.fillPassword(validPassword);
-        login.fillFormlyUsername(validUsernameDescription);
+        login.fillUsernameDescription(validUsernameDescription);
         login.clickLoginBtn();
         home.clickLogoutBtn();
         Assertions.assertEquals(driver.getCurrentUrl(), loginPageUrl);
@@ -128,8 +141,7 @@ public class LoginTest extends WebdriverSetting {
 
     @Test
     public void usernameErrorMessageWithInvalidLengthValues() {
-
-        Login login = new Login(driver);
+        LoginPage login = new LoginPage(driver);
         driver.get(loginPageUrl);
         login.fillUsername(invalidLengthValue);
         Assertions.assertEquals(login.getUsernameErrorMessage(), "Your username must be between 3 and 50 characters long");
@@ -137,17 +149,24 @@ public class LoginTest extends WebdriverSetting {
 
     @Test
     public void passwordErrorMessageWithInvalidLengthValues() {
-
-        Login login = new Login(driver);
+        LoginPage login = new LoginPage(driver);
         driver.get(loginPageUrl);
         login.fillPassword(invalidLengthValue);
         Assertions.assertEquals(login.getPasswordErrorMessage(), "Your username must be between 3 and 100 characters long");
     }
 
     @Test
-    public void overflowUsernameField() {
+    public void usernameDescriptionErrorColorWithInvalidLengthValues() {
+        LoginPage loginPage = new LoginPage(driver);
+        driver.get(loginPageUrl);
+        loginPage.fillUsernameDescription("as");
+        loginPage.removeFocusFromLastField();
+        Assertions.assertEquals(Color.fromString(loginPage.getUsernameDescriptionTitleColor()).asHex(), "#a94442");
+    }
 
-        Login login = new Login(driver);
+    @Test
+    public void overflowUsernameField() {
+        LoginPage login = new LoginPage(driver);
         driver.get(loginPageUrl);
         login.fillUsername("qlicyaykldhnpvdsmpdkblhblixgghmcknfqhodrorcnkuqhsdj");
         Assertions.assertEquals(login.getUsernameInputValue().length(), 50);
@@ -155,8 +174,7 @@ public class LoginTest extends WebdriverSetting {
 
     @Test
     public void overflowPasswordField() {
-
-        Login login = new Login(driver);
+        LoginPage login = new LoginPage(driver);
         driver.get(loginPageUrl);
         login.fillPassword("qlicyaykldhnpvdsmpdkblhblixgghmcknfqhodrorcnkuqhsdjqlicyaykldhnpvdsmpdkblhblixgghmcknfqhodrorcnkuqhsdj");
         Assertions.assertEquals(login.getPasswordInputValue().length(), 100);

@@ -14,6 +14,7 @@ public class HomePage {
 
     public static WebDriver driver;
 
+
     public HomePage(WebDriver driver) {
         HomePage.driver = driver;
         PageFactory.initElements(driver, this);
@@ -24,15 +25,19 @@ public class HomePage {
     private WebElement logOut;
 
 
+    public static HomePage using(WebDriver driver) {
+        return new HomePage(driver);
+    }
+
     public String getLogoutLinkText() {
         return logOut.getText();
     }
 
     public void clickLogoutBtn() {
-        logOut.click();
+        this.logOut.click();
     }
 
-    public static void waitHomePageLoad(String url) {
+    public void waitHomePageLoad(String url) {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         wait.until(ExpectedConditions.urlToBe(url));
     }

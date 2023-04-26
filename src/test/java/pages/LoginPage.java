@@ -16,6 +16,7 @@ public class LoginPage {
 
     public static WebDriver driver;
 
+
     public LoginPage(WebDriver driver) {
         LoginPage.driver = driver;
         PageFactory.initElements(driver, this);
@@ -47,55 +48,68 @@ public class LoginPage {
     private WebElement usernameDescriptionTitle;
 
 
-    public void fillUsername(String value) {
-        usernameField.sendKeys(value);
+    public static LoginPage using(WebDriver driver) {
+        return new LoginPage(driver);
     }
 
-    public void fillPassword(String value) {
-        passwordField.sendKeys(value);
+    public LoginPage launch() {
+        driver.get("https://www.way2automation.com/angularjs-protractor/registeration/#/login");
+        return this;
     }
 
-    public void fillUsernameDescription(String value) {
-        usernameDescriptionField.sendKeys(value);
+    public LoginPage fillUsername(String value) {
+        this.usernameField.sendKeys(value);
+        return this;
     }
 
-    public void clickLoginBtn() {
-        btnLogin.click();
+    public LoginPage fillPassword(String value) {
+        this.passwordField.sendKeys(value);
+        return this;
+    }
+
+    public LoginPage fillUsernameDescription(String value) {
+        this.usernameDescriptionField.sendKeys(value);
+        return this;
+    }
+
+    public LoginPage clickLoginBtn() {
+        this.btnLogin.click();
+        return this;
     }
 
     public String getFailedLoginMessage() {
-        return failedLoginErrorMessage.getText();
+        return this.failedLoginErrorMessage.getText();
     }
 
     public String getBtnLoginStatus() {
-        return btnLogin.getAttribute("disabled");
+        return this.btnLogin.getAttribute("disabled");
     }
 
     public void removeFocusFromLastField() {
-        usernameDescriptionField.sendKeys(Keys.TAB);
+        this.usernameDescriptionField.sendKeys(Keys.TAB);
     }
 
     public String getUsernameErrorMessage() {
-        return usernameErrorMessage.getText();
+        return this.usernameErrorMessage.getText();
     }
 
     public String getPasswordErrorMessage() {
-        return passwordErrorMessage.getText();
+        return this.passwordErrorMessage.getText();
     }
 
     public String getUsernameInputValue() {
-        return usernameField.getAttribute("value");
+        return this.usernameField.getAttribute("value");
     }
 
     public String getPasswordInputValue() {
-        return passwordField.getAttribute("value");
+        return this.passwordField.getAttribute("value");
     }
 
     public String getUsernameDescriptionTitleColor() {
-        return usernameDescriptionTitle.getCssValue("color");
+        return this.usernameDescriptionTitle.getCssValue("color");
     }
 
-    public static void waitLoginPageLoad(String url) {
+    public void waitLoginPageLoad(String url) {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         wait.until(ExpectedConditions.urlToBe(url));
     }

@@ -1,0 +1,104 @@
+id: Login-1 (loginSuccessfully)
+Заголовок: успешно залогиниться
+Шаги:
+1. открыть страницу логина (https://www.way2automation.com/angularjs-protractor/registeration/#/login)
+2. заполнить все поля валидными значениями (поле Username - angular, Password - password, Username Description - username)
+3. нажать кнопку Login
+Ожидаемый результат:
+1. происходит редирект и открывается страница Home (https://www.way2automation.com/angularjs-protractor/registeration/#/)
+2. на странице Home есть ссылка с текстом Logout
+
+id: Login-2 (loginWithInvalidUsername)
+Заголовок: логин с невалидным именем пользователя
+Шаги:
+1. открыть страницу логина (https://www.way2automation.com/angularjs-protractor/registeration/#/login)
+2. заполнить поле Username невалидным значением (например, test)
+3. заполнить оставшиеся поля валидными значениями (Password - password, Username Description - username)
+4. нажать кнопку Login
+Ожидаемый результат:
+1. пользователь остаётся на странице логина
+2. над формой появляется предупреждение "Username or password is incorrect"
+
+id: Login-3 (loginWithInvalidPassword)
+Заголовок: логин с невалидным паролем
+Шаги:
+1. открыть страницу логина (https://www.way2automation.com/angularjs-protractor/registeration/#/login)
+2. заполнить поле Password невалидным значением (например, test)
+3. заполнить оставшиеся поля валидными значениями (Username - angular, Username Description - username)
+4. нажать кнопку Login
+Ожидаемый результат:
+1. пользователь остаётся на странице логина
+2. над формой появляется предупреждение "Username or password is incorrect"
+
+id: Login-4 (loginWithEmptyUsernameField)
+Заголовок: кнопка Login не активна при незаполненном поле Username
+Шаги:
+1. открыть страницу логина (https://www.way2automation.com/angularjs-protractor/registeration/#/login)
+2. заполнить поля Password и Username Description валидными значениями (Password - password, Username Description - username)
+Ожидаемый результат:
+1. кнопка Login не активна (имеет атрибут disabled)
+
+id: Login-5 (loginWithEmptyPasswordField)
+Заголовок: кнопка Login не активна при незаполненном поле Password
+Шаги:
+1. открыть страницу логина (https://www.way2automation.com/angularjs-protractor/registeration/#/login)
+2. заполнить поля Username и Username Description валидными значениями (поле Username - angular, Username Description - username)
+Ожидаемый результат:
+1. кнопка Login не активна (имеет атрибут disabled)
+
+id: Login-6 (loginWithEmptyUsernameDescriptionField)
+Заголовок: кнопка Login не активна при незаполненном поле Username Description
+Шаги:
+1. открыть страницу логина (https://www.way2automation.com/angularjs-protractor/registeration/#/login)
+2. заполнить поля Username и Password валидными значениями (поле Username - angular, Password - password)
+Ожидаемый результат:
+1. кнопка Login не активна (имеет атрибут disabled)
+
+id: Logout-1 (logoutSuccessfully)
+Заголовок: кнопка Logout открывает страницу логина
+Предусловия: залогиниться на сайте (https://www.way2automation.com/angularjs-protractor/registeration/#/login, валидные значения - поле Username - angular, Password - password, Username Description - username)
+Шаги:
+1. на открывшейся странице нажать ссылку Logout
+Ожидаемый результат:
+1. происходит редирект и открывается страница формы логина (https://www.way2automation.com/angularjs-protractor/registeration/#/login)
+
+id: ErrorMessage-1 (usernameErrorMessageWithInvalidLengthValues)
+Заголовок: при недостаточной длине значения Username появляется сообщение об ошибке
+Шаги:
+1. открыть страницу логина (https://www.way2automation.com/angularjs-protractor/registeration/#/login)
+2. заполнить поле Username значением меньше 3-х символов (например, te)
+Ожидаемый результат:
+1. под полем Username появляется сообщение "Your username must be between 3 and 50 characters long"
+
+id: ErrorMessage-2 (passwordErrorMessageWithInvalidLengthValues)
+Заголовок: при недостаточной длине Password появляется сообщение об ошибке
+Шаги:
+1. открыть страницу логина (https://www.way2automation.com/angularjs-protractor/registeration/#/login)
+2. заполнить поле Password значением меньше 3-х символов
+Ожидаемый результат:
+1. под полем Password появляется сообщение "Your username must be between 3 and 100 characters long"
+
+id: ErrorMessage-3 (usernameDescriptionErrorColorWithInvalidLengthValues)
+Заголовок: при недостаточной длине Username Description появляется сообщение об ошибке
+Шаги:
+1. открыть страницу логина (https://www.way2automation.com/angularjs-protractor/registeration/#/login)
+2. заполнить поле Username Description значением меньше 3-х символов
+3. убрать фокус с поля
+Ожидаемый результат:
+1. под полем Username Description текст "username description" окрашивается в цвет #a94442;
+
+id: overflowField-1 (overflowUsernameField)
+Заголовок: поле Username не принимает больше 50 символов
+Шаги:
+1. открыть страницу логина (https://www.way2automation.com/angularjs-protractor/registeration/#/login)
+2. заполнить поле Username набором символов, длина которого больше 50 (например, qlicyaykldhnpvdsmpdkblhblixgghmcknfqhodrorcnkuqhsdj)
+Ожидаемый результат:
+1. поле Username содержит только 50 символов
+
+id: overflowField-2 (overflowPasswordField)
+Заголовок: поле Password не принимает больше 100 символов
+Шаги:
+1. открыть страницу логина (https://www.way2automation.com/angularjs-protractor/registeration/#/login)
+2. заполнить поле Password набором символов, длина которого больше 100 (например, qlicyaykldhnpvdsmpdkblhblixgghmcknfqhodrorcnkuqhsdjqlicyaykldhnpvdsmpdkblhblixgghmcknfqhodrorcnkuqhsdj)
+Ожидаемый результат:
+1. поле password содержит только 100 символов

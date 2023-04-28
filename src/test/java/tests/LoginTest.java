@@ -1,5 +1,6 @@
 package tests;
 
+import io.qameta.allure.*;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -34,6 +35,7 @@ public class LoginTest {
     @BeforeEach
     public void setUp() {
         ChromeOptions options = new ChromeOptions();
+        options.addArguments("--headless=new");
         options.addArguments("--remote-allow-origins=*");
         driver = new ChromeDriver(options);
         System.setProperty("webdriver.chrome.driver", Objects.requireNonNull(getClass().getClassLoader().getResource("drivers/chromedriver.exe")).getFile());
@@ -46,6 +48,9 @@ public class LoginTest {
     }
 
     @Test
+    @Epic("Login")
+    @Story("User is successfully logged in")
+    @Severity(SeverityLevel.CRITICAL)
     public void loginSuccessfully() {
         LoginPage loginPage = new LoginPage(driver);
         HomePage homePage = new HomePage(driver);
@@ -59,6 +64,10 @@ public class LoginTest {
     }
 
     @Test
+    @Epic("Login")
+    @Feature("Error message")
+    @Story("User enters the wrong Username")
+    @Severity(SeverityLevel.NORMAL)
     public void loginWithInvalidUsername() {
         LoginPage loginPage = new LoginPage(driver);
         loginPage.launch()
@@ -72,10 +81,13 @@ public class LoginTest {
     }
 
     @Test
+    @Epic("Login")
+    @Feature("Error message")
+    @Story("User enters the wrong Password")
+    @Severity(SeverityLevel.NORMAL)
     public void loginWithInvalidPassword() {
         LoginPage loginPage = new LoginPage(driver);
         loginPage.launch()
-                .launch()
                 .fillUsername(validUsername)
                 .fillPassword(invalidValue)
                 .fillUsernameDescription(validUsernameDescription)
@@ -86,6 +98,10 @@ public class LoginTest {
     }
 
     @Test
+    @Epic("Login")
+    @Feature("Login button status")
+    @Story("User doesn't fill the Username field")
+    @Severity(SeverityLevel.NORMAL)
     public void loginWithEmptyUsernameField() {
         LoginPage loginPage = new LoginPage(driver);
         loginPage.launch()
@@ -95,6 +111,10 @@ public class LoginTest {
     }
 
     @Test
+    @Epic("Login")
+    @Feature("Login button status")
+    @Story("User doesn't fill the Password field")
+    @Severity(SeverityLevel.NORMAL)
     public void loginWithEmptyPasswordField() {
         LoginPage loginPage = new LoginPage(driver);
         loginPage.launch()
@@ -104,6 +124,10 @@ public class LoginTest {
     }
 
     @Test
+    @Epic("Login")
+    @Feature("Login button status")
+    @Story("User doesn't fill the Username Description field")
+    @Severity(SeverityLevel.NORMAL)
     public void loginWithEmptyUsernameDescriptionField() {
         LoginPage loginPage = new LoginPage(driver);
         loginPage.launch()
@@ -113,6 +137,9 @@ public class LoginTest {
     }
 
     @Test
+    @Epic("Logout")
+    @Story("User is successfully logged out")
+    @Severity(SeverityLevel.CRITICAL)
     public void logoutSuccessfully()  {
         LoginPage loginPage = new LoginPage(driver);
         HomePage homePage = new HomePage(driver);
@@ -126,6 +153,10 @@ public class LoginTest {
     }
 
     @Test
+    @Epic("Login")
+    @Feature("Error message")
+    @Story("User filled the Username field with too short a value")
+    @Severity(SeverityLevel.MINOR)
     public void usernameErrorMessageWithInvalidLengthValues() {
         LoginPage loginPage = new LoginPage(driver);
         loginPage.launch()
@@ -134,6 +165,10 @@ public class LoginTest {
     }
 
     @Test
+    @Epic("Login")
+    @Feature("Error message")
+    @Story("User filled the Password field with too short a value")
+    @Severity(SeverityLevel.MINOR)
     public void passwordErrorMessageWithInvalidLengthValues() {
         LoginPage loginPage = new LoginPage(driver);
         loginPage.launch()
@@ -142,6 +177,10 @@ public class LoginTest {
     }
 
     @Test
+    @Epic("Login")
+    @Feature("Error message")
+    @Story("User filled the Username Description field with too short a value")
+    @Severity(SeverityLevel.MINOR)
     public void usernameDescriptionErrorColorWithInvalidLengthValues() {
         LoginPage loginPage = new LoginPage(driver);
         loginPage.launch()
@@ -151,6 +190,10 @@ public class LoginTest {
     }
 
     @Test
+    @Epic("Login")
+    @Feature("Overflow field")
+    @Story("User overflows the Username field")
+    @Severity(SeverityLevel.NORMAL)
     public void overflowUsernameField() {
         LoginPage loginPage = new LoginPage(driver);
         loginPage.launch()
@@ -159,6 +202,10 @@ public class LoginTest {
     }
 
     @Test
+    @Epic("Login")
+    @Feature("Overflow field")
+    @Story("User overflows the Password field")
+    @Severity(SeverityLevel.NORMAL)
     public void overflowPasswordField() {
         LoginPage loginPage = new LoginPage(driver);
         loginPage.launch()

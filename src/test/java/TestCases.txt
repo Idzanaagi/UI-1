@@ -76,7 +76,7 @@ id: ErrorMessage-2 (passwordErrorMessageWithInvalidLengthValues)
 1. открыть страницу логина (https://www.way2automation.com/angularjs-protractor/registeration/#/login)
 2. заполнить поле Password значением меньше 3-х символов
 Ожидаемый результат:
-1. под полем Password появляется сообщение "Your username must be between 3 and 100 characters long"
+1. под полем Password появляется сообщение "Your password must be between 3 and 100 characters long"
 
 id: ErrorMessage-3 (usernameDescriptionErrorColorWithInvalidLengthValues)
 Заголовок: при недостаточной длине Username Description появляется сообщение об ошибке
@@ -102,3 +102,24 @@ id: overflowField-2 (overflowPasswordField)
 2. заполнить поле Password набором символов, длина которого больше 100 (например, qlicyaykldhnpvdsmpdkblhblixgghmcknfqhodrorcnkuqhsdjqlicyaykldhnpvdsmpdkblhblixgghmcknfqhodrorcnkuqhsdj)
 Ожидаемый результат:
 1. поле password содержит только 100 символов
+
+id: fieldTip-1 (hintToEmptyUsernameField)
+Заголовок: при незаполненом поле Username есть подсказка
+Шаги:
+1. открыть страницу логина (https://www.way2automation.com/angularjs-protractor/registeration/#/login)
+Ожидаемый результат:
+1. Под полем Username есть текст "You did not enter a username"
+
+id: fieldTip-2 (hintToEmptyPasswordField)
+Заголовок: при незаполненом поле Password есть подсказка
+Шаги:
+1. открыть страницу логина (https://www.way2automation.com/angularjs-protractor/registeration/#/login)
+Ожидаемый результат:
+1. Под полем Password есть текст "You did not enter a password"
+
+id: fieldTip-3 (hintToEmptyUsernameDescriptionField)
+Заголовок: при незаполненом поле Password есть подсказка
+Шаги:
+1. открыть страницу логина (https://www.way2automation.com/angularjs-protractor/registeration/#/login)
+Ожидаемый результат:
+1. Под полем Username Description есть текст "username description"

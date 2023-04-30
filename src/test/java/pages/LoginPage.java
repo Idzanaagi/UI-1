@@ -15,6 +15,8 @@ public class LoginPage {
 
     public static WebDriver driver;
 
+    private final String loginPageUrl = "https://www.way2automation.com/angularjs-protractor/registeration/#/login";
+
     @FindBy(id = "username")
     private WebElement usernameField;
 
@@ -28,16 +30,16 @@ public class LoginPage {
     private WebElement btnLogin;
 
     @FindBy(css = "[ng-messages='form.username.$error']")
-    private WebElement usernameErrorMessage;
+    private WebElement usernameFieldMessage;
 
     @FindBy(css = "[ng-messages='form.password.$error']")
-    private WebElement passwordErrorMessage;
+    private WebElement passwordFieldMessage;
 
     @FindBy(className = "alert-danger")
     private WebElement failedLoginErrorMessage;
 
     @FindBy(id = "formly_1_input_username_0_description")
-    private WebElement usernameDescriptionTitle;
+    private WebElement usernameDescriptionFieldMessage;
 
     public LoginPage(WebDriver driver) {
         LoginPage.driver = driver;
@@ -46,7 +48,7 @@ public class LoginPage {
 
     @Step("open Login page")
     public LoginPage launch() {
-        driver.get("https://www.way2automation.com/angularjs-protractor/registeration/#/login");
+        driver.get(loginPageUrl);
         return this;
     }
 
@@ -74,12 +76,10 @@ public class LoginPage {
         return this;
     }
 
-    @Step("get message of unsuccessful login")
     public String getFailedLoginMessage() {
         return failedLoginErrorMessage.getText();
     }
 
-    @Step("get the status of the Login button")
     public boolean getBtnLoginStatus() {
         return btnLogin.isEnabled();
     }
@@ -89,34 +89,33 @@ public class LoginPage {
         usernameDescriptionField.sendKeys(Keys.TAB);
     }
 
-    @Step("get an error message in the Username field")
-    public String getUsernameErrorMessage() {
-        return usernameErrorMessage.getText();
+    public String getUsernameFieldMessage() {
+        return usernameFieldMessage.getText();
     }
 
-    @Step("get an error message in the Password field")
-    public String getPasswordErrorMessage() {
-        return passwordErrorMessage.getText();
+    public String getPasswordFieldMessage() {
+        return passwordFieldMessage.getText();
     }
 
-    @Step("get a value in the Username field")
+    public String getUsernameDescriptionFieldMessage() {
+        return usernameDescriptionFieldMessage.getText();
+    }
+
     public String getUsernameInputValue() {
         return usernameField.getAttribute("value");
     }
 
-    @Step("get a value in the Password field")
     public String getPasswordInputValue() {
         return passwordField.getAttribute("value");
     }
 
-    @Step("get the title color of the Username Description field")
     public String getUsernameDescriptionTitleColor() {
-        return usernameDescriptionTitle.getCssValue("color");
+        return usernameDescriptionFieldMessage.getCssValue("color");
     }
 
     @Step("wait for Login page loading")
     public void waitLoginPageLoad() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        wait.until(ExpectedConditions.urlToBe("https://www.way2automation.com/angularjs-protractor/registeration/#/login"));
+        wait.until(ExpectedConditions.urlToBe(loginPageUrl));
     }
 }

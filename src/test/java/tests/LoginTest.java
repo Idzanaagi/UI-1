@@ -1,43 +1,68 @@
 package tests;
 
-import io.qameta.allure.*;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
+import io.qameta.allure.Story;
+import io.qameta.allure.Severity;
+import io.qameta.allure.SeverityLevel;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.Color;
+
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.time.Duration;
 import java.util.Objects;
+import java.util.Properties;
 
 import pages.LoginPage;
 import pages.HomePage;
+import utils.ChromeDriverOptions;
 
 
+@Epic("Login")
 public class LoginTest {
 
     public static WebDriver driver;
 
-    private final String loginPageUrl = "https://www.way2automation.com/angularjs-protractor/registeration/#/login";
+    private static final String loginPageUrl;
 
-    private final String validUsername = "angular";
+    private static final String validUsername;
 
-    private final String validPassword = "password";
+    private static final String validPassword;
 
-    private final String validUsernameDescription = "username";
+    private static final String validUsernameDescription;
 
-    private final String invalidValue = "test";
+    private static final String invalidValue;
 
-    private final String invalidLengthValue = "te";
+    private static final String invalidLengthValue;
+
+    static {
+        try {
+            String filePath = "src/test/java/resources/testData.properties";
+            Properties props = new Properties();
+            FileInputStream ip = new FileInputStream(filePath);
+            props.load(ip);
+            validUsername = props.getProperty("validUsername");
+            validPassword = props.getProperty("validPassword");
+            validUsernameDescription = props.getProperty("validUsernameDescription");
+            loginPageUrl = props.getProperty("loginPageUrl");
+            invalidValue = props.getProperty("invalidValue");
+            invalidLengthValue = props.getProperty("invalidLengthValue");
+            ip.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     @BeforeEach
     public void setUp() {
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("--headless=new");
-        options.addArguments("--remote-allow-origins=*");
-        driver = new ChromeDriver(options);
+        ChromeDriverOptions options = new ChromeDriverOptions();
+        driver = new ChromeDriver(options.userOptions(true));
         System.setProperty("webdriver.chrome.driver", Objects.requireNonNull(getClass().getClassLoader().getResource("drivers/chromedriver.exe")).getFile());
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
     }
@@ -48,7 +73,6 @@ public class LoginTest {
     }
 
     @Test
-    @Epic("Login")
     @Story("User is successfully logged in")
     @Severity(SeverityLevel.CRITICAL)
     public void loginSuccessfully() {
@@ -60,11 +84,10 @@ public class LoginTest {
                 .fillUsernameDescription(validUsernameDescription)
                 .clickLoginBtn();
         homePage.waitHomePageLoad();
-        Assertions.assertEquals(homePage.getLogoutLinkText(), "Logout");
+        Assertions.assertEquals("Logout", homePage.getLogoutLinkText(), "Logout link doesn't contain the text 'Logout'");
     }
 
     @Test
-    @Epic("Login")
     @Feature("Error message")
     @Story("User enters the wrong Username")
     @Severity(SeverityLevel.NORMAL)
@@ -76,12 +99,12 @@ public class LoginTest {
                 .fillUsernameDescription(validUsernameDescription)
                 .clickLoginBtn()
                 .waitLoginPageLoad();
-        Assertions.assertEquals(driver.getCurrentUrl(), loginPageUrl);
-        Assertions.assertEquals(loginPage.getFailedLoginMessage(), "Username or password is incorrect");
+        Assertions.assertEquals(loginPageUrl, driver.getCurrentUrl(), "expected and received url did not match");
+        Assertions.assertEquals(loginPage.getFailedLoginMessage(), "Username or password is incorrect",
+                "error message doesn't contain the expected text");
     }
 
     @Test
-    @Epic("Login")
     @Feature("Error message")
     @Story("User enters the wrong Password")
     @Severity(SeverityLevel.NORMAL)
@@ -93,12 +116,12 @@ public class LoginTest {
                 .fillUsernameDescription(validUsernameDescription)
                 .clickLoginBtn()
                 .waitLoginPageLoad();
-        Assertions.assertEquals(driver.getCurrentUrl(), loginPageUrl);
-        Assertions.assertEquals(loginPage.getFailedLoginMessage(), "Username or password is incorrect");
+        Assertions.assertEquals(loginPageUrl, driver.getCurrentUrl(),"expected and received url did not match");
+        Assertions.assertEquals("Username or password is incorrect", loginPage.getFailedLoginMessage(),
+                "error message doesn't contain the expected text");
     }
 
     @Test
-    @Epic("Login")
     @Feature("Login button status")
     @Story("User doesn't fill the Username field")
     @Severity(SeverityLevel.NORMAL)
@@ -107,11 +130,10 @@ public class LoginTest {
         loginPage.launch()
                 .fillPassword(validPassword)
                 .fillUsernameDescription(validUsernameDescription);
-        Assertions.assertFalse(loginPage.getBtnLoginStatus());
+        Assertions.assertFalse(loginPage.getBtnLoginStatus(), "Login button status is not 'Disabled'");
     }
 
     @Test
-    @Epic("Login")
     @Feature("Login button status")
     @Story("User doesn't fill the Password field")
     @Severity(SeverityLevel.NORMAL)
@@ -120,11 +142,10 @@ public class LoginTest {
         loginPage.launch()
                 .fillUsername(validUsername)
                 .fillUsernameDescription(validUsernameDescription);
-        Assertions.assertFalse(loginPage.getBtnLoginStatus());
+        Assertions.assertFalse(loginPage.getBtnLoginStatus(), "Login button status is not 'Disabled'");
     }
 
     @Test
-    @Epic("Login")
     @Feature("Login button status")
     @Story("User doesn't fill the Username Description field")
     @Severity(SeverityLevel.NORMAL)
@@ -133,27 +154,10 @@ public class LoginTest {
         loginPage.launch()
                 .fillUsername(validUsername)
                 .fillPassword(validPassword);
-        Assertions.assertFalse(loginPage.getBtnLoginStatus());
+        Assertions.assertFalse(loginPage.getBtnLoginStatus(), "Login button status is not 'Disabled'");
     }
 
     @Test
-    @Epic("Logout")
-    @Story("User is successfully logged out")
-    @Severity(SeverityLevel.CRITICAL)
-    public void logoutSuccessfully()  {
-        LoginPage loginPage = new LoginPage(driver);
-        HomePage homePage = new HomePage(driver);
-        loginPage.launch()
-                .fillUsername(validUsername)
-                .fillPassword(validPassword)
-                .fillUsernameDescription(validUsernameDescription)
-                .clickLoginBtn();
-        homePage.clickLogoutBtn();
-        Assertions.assertEquals(driver.getCurrentUrl(), loginPageUrl);
-    }
-
-    @Test
-    @Epic("Login")
     @Feature("Error message")
     @Story("User filled the Username field with too short a value")
     @Severity(SeverityLevel.MINOR)
@@ -161,11 +165,11 @@ public class LoginTest {
         LoginPage loginPage = new LoginPage(driver);
         loginPage.launch()
                 .fillUsername(invalidLengthValue);
-        Assertions.assertEquals(loginPage.getUsernameErrorMessage(), "Your username must be between 3 and 50 characters long");
+        Assertions.assertEquals( "Your username must be between 3 and 50 characters long", loginPage.getUsernameFieldMessage(),
+                "error message doesn't match the expected one");
     }
 
     @Test
-    @Epic("Login")
     @Feature("Error message")
     @Story("User filled the Password field with too short a value")
     @Severity(SeverityLevel.MINOR)
@@ -173,11 +177,11 @@ public class LoginTest {
         LoginPage loginPage = new LoginPage(driver);
         loginPage.launch()
                 .fillPassword(invalidLengthValue);
-        Assertions.assertEquals(loginPage.getPasswordErrorMessage(), "Your username must be between 3 and 100 characters long");
+        Assertions.assertEquals( "Your password must be between 3 and 100 characters long", loginPage.getPasswordFieldMessage(),
+                "error message doesn't contain the expected text");
     }
 
     @Test
-    @Epic("Login")
     @Feature("Error message")
     @Story("User filled the Username Description field with too short a value")
     @Severity(SeverityLevel.MINOR)
@@ -186,11 +190,11 @@ public class LoginTest {
         loginPage.launch()
                 .fillUsernameDescription(invalidLengthValue)
                 .removeFocusFromLastField();
-        Assertions.assertEquals(Color.fromString(loginPage.getUsernameDescriptionTitleColor()).asHex(), "#a94442");
+        Assertions.assertEquals("#a94442", Color.fromString(loginPage.getUsernameDescriptionTitleColor()).asHex(),
+                "error message doesn't contain the expected text");
     }
 
     @Test
-    @Epic("Login")
     @Feature("Overflow field")
     @Story("User overflows the Username field")
     @Severity(SeverityLevel.NORMAL)
@@ -198,11 +202,11 @@ public class LoginTest {
         LoginPage loginPage = new LoginPage(driver);
         loginPage.launch()
                 .fillUsername("qlicyaykldhnpvdsmpdkblhblixgghmcknfqhodrorcnkuqhsdj");
-        Assertions.assertEquals(loginPage.getUsernameInputValue().length(), 50);
+        Assertions.assertEquals( 50, loginPage.getUsernameInputValue().length(),
+                "resulting value length is not equal to 50");
     }
 
     @Test
-    @Epic("Login")
     @Feature("Overflow field")
     @Story("User overflows the Password field")
     @Severity(SeverityLevel.NORMAL)
@@ -210,6 +214,36 @@ public class LoginTest {
         LoginPage loginPage = new LoginPage(driver);
         loginPage.launch()
                 .fillPassword("qlicyaykldhnpvdsmpdkblhblixgghmcknfqhodrorcnkuqhsdjqlicyaykldhnpvdsmpdkblhblixgghmcknfqhodrorcnkuqhsdj");
-        Assertions.assertEquals(loginPage.getPasswordInputValue().length(), 100);
+        Assertions.assertEquals(100, loginPage.getPasswordInputValue().length(), "the resulting value length is not equal to 50");
+    }
+
+    @Test
+    @Feature("Field tip")
+    @Story("User hasn't yet entered a value in the Username field")
+    @Severity(SeverityLevel.MINOR)
+    public void hintToEmptyUsernameField() {
+        LoginPage loginPage = new LoginPage(driver);
+        loginPage.launch();
+        Assertions.assertEquals("You did not enter a username", loginPage.getUsernameFieldMessage(),"the hint text doesn't match");
+    }
+
+    @Test
+    @Feature("Field tip")
+    @Story("User hasn't yet entered a value in the Password field")
+    @Severity(SeverityLevel.MINOR)
+    public void hintToEmptyPasswordField() {
+        LoginPage loginPage = new LoginPage(driver);
+        loginPage.launch();
+        Assertions.assertEquals("You did not enter a password", loginPage.getPasswordFieldMessage(),"the hint text doesn't match");
+    }
+
+    @Test
+    @Feature("Field tip")
+    @Story("User hasn't yet entered a value in the User Description field")
+    @Severity(SeverityLevel.NORMAL)
+    public void hintToEmptyUsernameDescriptionField() {
+        LoginPage loginPage = new LoginPage(driver);
+        loginPage.launch();
+        Assertions.assertEquals("username description", loginPage.getUsernameDescriptionFieldMessage(),  "the hint text doesn't match");
     }
 }

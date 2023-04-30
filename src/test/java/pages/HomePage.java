@@ -22,7 +22,6 @@ public class HomePage {
         PageFactory.initElements(driver, this);
     }
 
-    @Step("get the Logout link text")
     public String getLogoutLinkText() {
         return logOut.getText();
     }

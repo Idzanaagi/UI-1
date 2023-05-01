@@ -1,76 +1,28 @@
 package tests;
 
+import base.BaseTest;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.Color;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.time.Duration;
-import java.util.Objects;
-import java.util.Properties;
+import static utils.ReadProperties.validUsername;
+import static utils.ReadProperties.validPassword;
+import static utils.ReadProperties.validUsernameDescription;
+import static utils.ReadProperties.loginPageUrl;
+import static utils.ReadProperties.invalidValue;
+import static utils.ReadProperties.invalidLengthValue;
 
 import pages.LoginPage;
 import pages.HomePage;
-import utils.ChromeDriverOptions;
 
 
 @Epic("Login")
-public class LoginTest {
-
-    public static WebDriver driver;
-
-    private static final String loginPageUrl;
-
-    private static final String validUsername;
-
-    private static final String validPassword;
-
-    private static final String validUsernameDescription;
-
-    private static final String invalidValue;
-
-    private static final String invalidLengthValue;
-
-    static {
-        try {
-            String filePath = "src/test/java/resources/testData.properties";
-            Properties props = new Properties();
-            FileInputStream ip = new FileInputStream(filePath);
-            props.load(ip);
-            validUsername = props.getProperty("validUsername");
-            validPassword = props.getProperty("validPassword");
-            validUsernameDescription = props.getProperty("validUsernameDescription");
-            loginPageUrl = props.getProperty("loginPageUrl");
-            invalidValue = props.getProperty("invalidValue");
-            invalidLengthValue = props.getProperty("invalidLengthValue");
-            ip.close();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    @BeforeEach
-    public void setUp() {
-        ChromeDriverOptions options = new ChromeDriverOptions();
-        driver = new ChromeDriver(options.userOptions(true));
-        System.setProperty("webdriver.chrome.driver", Objects.requireNonNull(getClass().getClassLoader().getResource("drivers/chromedriver.exe")).getFile());
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-    }
-
-    @AfterEach
-    public void close() {
-        driver.quit();
-    }
+public class LoginTest extends BaseTest {
 
     @Test
     @Story("User is successfully logged in")

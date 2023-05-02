@@ -8,13 +8,9 @@ import io.qameta.allure.Story;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import static utils.ReadProperties.validUsername;
-import static utils.ReadProperties.validPassword;
-import static utils.ReadProperties.validUsernameDescription;
-import static utils.ReadProperties.loginPageUrl;
-
 import pages.HomePage;
 import pages.LoginPage;
+import utils.ReadProperties;
 
 
 @Epic("Logout")
@@ -27,11 +23,11 @@ public class LogoutTest extends BaseTest {
         LoginPage loginPage = new LoginPage(driver);
         HomePage homePage = new HomePage(driver);
         loginPage.launch()
-                .fillUsername(validUsername)
-                .fillPassword(validPassword)
-                .fillUsernameDescription(validUsernameDescription)
+                .fillUsername(ReadProperties.getProperty("validUsername"))
+                .fillPassword(ReadProperties.getProperty("validPassword"))
+                .fillUsernameDescription(ReadProperties.getProperty("validUsernameDescription"))
                 .clickLoginBtn();
         homePage.clickLogoutBtn();
-        Assertions.assertEquals(driver.getCurrentUrl(), loginPageUrl, "expected and received url did not match");
+        Assertions.assertEquals(driver.getCurrentUrl(), ReadProperties.getProperty("loginPageUrl"), "expected and received url did not match");
     }
 }

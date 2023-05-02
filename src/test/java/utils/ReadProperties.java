@@ -6,33 +6,19 @@ import java.util.Properties;
 
 public final class ReadProperties {
 
-    public static String validUsername;
+   private static final String filePath = "src/test/java/resources/testData.properties";
 
-    public static String validPassword;
-
-    public static String validUsernameDescription;
-
-    public static String loginPageUrl;
-
-    public static String invalidValue;
-
-    public static String invalidLengthValue;
-
-    private static final String filePath = "src/test/java/resources/testData.properties";
-
-    static {
+   public static String getProperty(String propertyValue) {
+        String expectedProperty;
         try (FileInputStream ip = new FileInputStream(filePath))
         {
             Properties props = new Properties();
             props.load(ip);
-            validUsername = props.getProperty("validUsername");
-            validPassword = props.getProperty("validPassword");
-            validUsernameDescription = props.getProperty("validUsernameDescription");
-            loginPageUrl = props.getProperty("loginPageUrl");
-            invalidValue = props.getProperty("invalidValue");
-            invalidLengthValue = props.getProperty("invalidLengthValue");
-        } catch (IOException e) {
+            expectedProperty = props.getProperty(propertyValue);
+        }
+        catch (IOException e) {
             throw new RuntimeException(e);
         }
+        return expectedProperty;
     }
 }

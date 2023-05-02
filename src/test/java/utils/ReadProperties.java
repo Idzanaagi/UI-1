@@ -6,19 +6,22 @@ import java.util.Properties;
 
 public final class ReadProperties {
 
-   private static final String filePath = "src/test/java/resources/testData.properties";
+    private static Properties loadProperty() {
 
-   public static String getProperty(String propertyValue) {
-        String expectedProperty;
-        try (FileInputStream ip = new FileInputStream(filePath))
-        {
-            Properties props = new Properties();
+        final String filePath = "src/test/java/resources/testData.properties";
+
+        Properties props = new Properties();
+
+        try(FileInputStream ip = new FileInputStream(filePath)) {
             props.load(ip);
-            expectedProperty = props.getProperty(propertyValue);
         }
         catch (IOException e) {
             throw new RuntimeException(e);
         }
-        return expectedProperty;
+        return props;
+    }
+
+    public static String readProperty(String expectedProperty) {
+        return loadProperty().getProperty(expectedProperty);
     }
 }

@@ -23,11 +23,11 @@ public class LogoutTest extends BaseTest {
         LoginPage loginPage = new LoginPage(driver);
         HomePage homePage = new HomePage(driver);
         loginPage.launch()
-                .fillUsername(ReadProperties.getProperty("validUsername"))
-                .fillPassword(ReadProperties.getProperty("validPassword"))
-                .fillUsernameDescription(ReadProperties.getProperty("validUsernameDescription"))
+                .fillUsername(ReadProperties.readProperty("validUsername"))
+                .fillPassword(ReadProperties.readProperty("validPassword"))
+                .fillUsernameDescription(ReadProperties.readProperty("validUsernameDescription"))
                 .clickLoginBtn();
         homePage.clickLogoutBtn();
-        Assertions.assertEquals(driver.getCurrentUrl(), ReadProperties.getProperty("loginPageUrl"), "expected and received url did not match");
+        Assertions.assertEquals(driver.getCurrentUrl(), ReadProperties.readProperty("loginPageUrl"), "expected and received url did not match");
     }
 }

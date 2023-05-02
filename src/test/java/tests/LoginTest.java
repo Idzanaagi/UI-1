@@ -25,9 +25,9 @@ public class LoginTest extends BaseTest {
         LoginPage loginPage = new LoginPage(driver);
         HomePage homePage = new HomePage(driver);
         loginPage.launch()
-                .fillUsername(ReadProperties.getProperty("validUsername"))
-                .fillPassword(ReadProperties.getProperty("validPassword"))
-                .fillUsernameDescription(ReadProperties.getProperty("validUsernameDescription"))
+                .fillUsername(ReadProperties.readProperty("validUsername"))
+                .fillPassword(ReadProperties.readProperty("validPassword"))
+                .fillUsernameDescription(ReadProperties.readProperty("validUsernameDescription"))
                 .clickLoginBtn();
         homePage.waitHomePageLoad();
         Assertions.assertEquals("Logout", homePage.getLogoutLinkText(), "Logout link doesn't contain the text 'Logout'");
@@ -40,12 +40,12 @@ public class LoginTest extends BaseTest {
     public void loginWithInvalidUsername() {
         LoginPage loginPage = new LoginPage(driver);
         loginPage.launch()
-                .fillUsername(ReadProperties.getProperty("invalidValue"))
-                .fillPassword(ReadProperties.getProperty("validPassword"))
-                .fillUsernameDescription(ReadProperties.getProperty("validUsernameDescription"))
+                .fillUsername(ReadProperties.readProperty("invalidValue"))
+                .fillPassword(ReadProperties.readProperty("validPassword"))
+                .fillUsernameDescription(ReadProperties.readProperty("validUsernameDescription"))
                 .clickLoginBtn()
                 .waitLoginPageLoad();
-        Assertions.assertEquals(ReadProperties.getProperty("loginPageUrl"), driver.getCurrentUrl(), "expected and received url did not match");
+        Assertions.assertEquals(ReadProperties.readProperty("loginPageUrl"), driver.getCurrentUrl(), "expected and received url did not match");
         Assertions.assertEquals(loginPage.getFailedLoginMessage(), "Username or password is incorrect",
                 "error message doesn't contain the expected text");
     }
@@ -57,12 +57,12 @@ public class LoginTest extends BaseTest {
     public void loginWithInvalidPassword() {
         LoginPage loginPage = new LoginPage(driver);
         loginPage.launch()
-                .fillUsername(ReadProperties.getProperty("validUsername"))
-                .fillPassword(ReadProperties.getProperty("invalidValue"))
-                .fillUsernameDescription(ReadProperties.getProperty("validUsernameDescription"))
+                .fillUsername(ReadProperties.readProperty("validUsername"))
+                .fillPassword(ReadProperties.readProperty("invalidValue"))
+                .fillUsernameDescription(ReadProperties.readProperty("validUsernameDescription"))
                 .clickLoginBtn()
                 .waitLoginPageLoad();
-        Assertions.assertEquals(ReadProperties.getProperty("loginPageUrl"), driver.getCurrentUrl(), "expected and received url did not match");
+        Assertions.assertEquals(ReadProperties.readProperty("loginPageUrl"), driver.getCurrentUrl(), "expected and received url did not match");
         Assertions.assertEquals("Username or password is incorrect", loginPage.getFailedLoginMessage(),
                 "error message doesn't contain the expected text");
     }
@@ -74,8 +74,8 @@ public class LoginTest extends BaseTest {
     public void loginWithEmptyUsernameField() {
         LoginPage loginPage = new LoginPage(driver);
         loginPage.launch()
-                .fillPassword(ReadProperties.getProperty("validPassword"))
-                .fillUsernameDescription(ReadProperties.getProperty("validUsernameDescription"));
+                .fillPassword(ReadProperties.readProperty("validPassword"))
+                .fillUsernameDescription(ReadProperties.readProperty("validUsernameDescription"));
         Assertions.assertFalse(loginPage.getBtnLoginStatus(), "Login button status is not 'Disabled'");
     }
 
@@ -86,8 +86,8 @@ public class LoginTest extends BaseTest {
     public void loginWithEmptyPasswordField() {
         LoginPage loginPage = new LoginPage(driver);
         loginPage.launch()
-                .fillUsername(ReadProperties.getProperty("validUsername"))
-                .fillUsernameDescription(ReadProperties.getProperty("validUsernameDescription"));
+                .fillUsername(ReadProperties.readProperty("validUsername"))
+                .fillUsernameDescription(ReadProperties.readProperty("validUsernameDescription"));
         Assertions.assertFalse(loginPage.getBtnLoginStatus(), "Login button status is not 'Disabled'");
     }
 
@@ -98,8 +98,8 @@ public class LoginTest extends BaseTest {
     public void loginWithEmptyUsernameDescriptionField() {
         LoginPage loginPage = new LoginPage(driver);
         loginPage.launch()
-                .fillUsername(ReadProperties.getProperty("validUsername"))
-                .fillPassword(ReadProperties.getProperty("validPassword"));
+                .fillUsername(ReadProperties.readProperty("validUsername"))
+                .fillPassword(ReadProperties.readProperty("validPassword"));
         Assertions.assertFalse(loginPage.getBtnLoginStatus(), "Login button status is not 'Disabled'");
     }
 
@@ -110,7 +110,7 @@ public class LoginTest extends BaseTest {
     public void usernameErrorMessageWithInvalidLengthValues() {
         LoginPage loginPage = new LoginPage(driver);
         loginPage.launch()
-                .fillUsername(ReadProperties.getProperty("invalidLengthValue"));
+                .fillUsername(ReadProperties.readProperty("invalidLengthValue"));
         Assertions.assertEquals( "Your username must be between 3 and 50 characters long", loginPage.getUsernameFieldMessage(),
                 "error message doesn't match the expected one");
     }
@@ -122,7 +122,7 @@ public class LoginTest extends BaseTest {
     public void passwordErrorMessageWithInvalidLengthValues() {
         LoginPage loginPage = new LoginPage(driver);
         loginPage.launch()
-                .fillPassword(ReadProperties.getProperty("invalidLengthValue"));
+                .fillPassword(ReadProperties.readProperty("invalidLengthValue"));
         Assertions.assertEquals( "Your password must be between 3 and 100 characters long", loginPage.getPasswordFieldMessage(),
                 "error message doesn't contain the expected text");
     }
@@ -134,7 +134,7 @@ public class LoginTest extends BaseTest {
     public void usernameDescriptionErrorColorWithInvalidLengthValues() {
         LoginPage loginPage = new LoginPage(driver);
         loginPage.launch()
-                .fillUsernameDescription(ReadProperties.getProperty("invalidLengthValue"))
+                .fillUsernameDescription(ReadProperties.readProperty("invalidLengthValue"))
                 .removeFocusFromLastField();
         Assertions.assertEquals("#a94442", Color.fromString(loginPage.getUsernameDescriptionTitleColor()).asHex(),
                 "error message doesn't contain the expected text");

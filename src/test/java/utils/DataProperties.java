@@ -2,16 +2,13 @@ package utils;
 
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.Properties;
 
-public final class ReadProperties {
+public final class DataProperties {
+
+    final private static Properties properties = new Properties();
 
     final private static String filePath = "src/test/java/resources/testData.properties";
-
-    private static class LoadProperty {
-
-        static final HashMap<String, String> properties = new HashMap<String, String>();
 
         static {
             try(FileInputStream ip = new FileInputStream(filePath)) {
@@ -26,9 +23,8 @@ public final class ReadProperties {
                 throw new RuntimeException(e);
             }
         }
-    }
 
     static public String readProperty(String value) {
-        return LoadProperty.properties.get(value);
+        return properties.getProperty(value);
     }
 }

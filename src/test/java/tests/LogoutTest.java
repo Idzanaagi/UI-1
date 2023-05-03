@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 
 import pages.HomePage;
 import pages.LoginPage;
-import static utils.ReadProperties.readProperty;
+import static utils.DataProperties.readProperty;
 
 
 @Epic("Logout")

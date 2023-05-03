@@ -12,7 +12,7 @@ import org.openqa.selenium.support.Color;
 
 import pages.LoginPage;
 import pages.HomePage;
-import static utils.ReadProperties.readProperty;
+import static utils.DataProperties.readProperty;
 
 
 @Epic("Login")

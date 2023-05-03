@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 
 import pages.HomePage;
 import pages.LoginPage;
-import utils.ReadProperties;
+import static utils.ReadProperties.readProperty;
 
 
 @Epic("Logout")
@@ -23,11 +23,11 @@ public class LogoutTest extends BaseTest {
         LoginPage loginPage = new LoginPage(driver);
         HomePage homePage = new HomePage(driver);
         loginPage.launch()
-                .fillUsername(ReadProperties.readProperty("validUsername"))
-                .fillPassword(ReadProperties.readProperty("validPassword"))
-                .fillUsernameDescription(ReadProperties.readProperty("validUsernameDescription"))
+                .fillUsername(readProperty("validUsername"))
+                .fillPassword(readProperty("validPassword"))
+                .fillUsernameDescription(readProperty("validUsernameDescription"))
                 .clickLoginBtn();
         homePage.clickLogoutBtn();
-        Assertions.assertEquals(driver.getCurrentUrl(), ReadProperties.readProperty("loginPageUrl"), "expected and received url did not match");
+        Assertions.assertEquals(driver.getCurrentUrl(), readProperty("loginPageUrl"), "expected and received url did not match");
     }
 }

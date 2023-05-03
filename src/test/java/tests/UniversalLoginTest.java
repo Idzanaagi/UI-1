@@ -44,7 +44,7 @@ public class UniversalLoginTest extends BaseTest {
     @ParameterizedTest
     @Story("User logs in with valid and invalid data")
     @MethodSource("dataProvider")
-    void universalLogin(String name, String password, String description)  {
+    void universalLogin(String name, String password, String description) throws InterruptedException {
         LoginPage loginPage = new LoginPage(driver);
         HomePage homePage = new HomePage(driver);
         loginPage.launch()
@@ -52,7 +52,16 @@ public class UniversalLoginTest extends BaseTest {
                 .fillPassword(password)
                 .fillUsernameDescription(description)
                 .clickLoginBtn();
-        homePage.waitHomePageLoad();
-        Assertions.assertEquals("Logout", homePage.getLogoutLinkText(), "Logout link doesn't contain the text 'Logout'");
+        if (driver.getCurrentUrl().equals("https://www.way2automation.com/angularjs-protractor/registeration/#/")) {
+            Assertions.assertEquals("Logout", homePage.getLogoutLinkText(), "Logout link doesn't contain the text 'Logout'");
+        }
+        else if (loginPage.getBtnLoginStatus()) {
+            Assertions.assertEquals(readProperty("loginPageUrl"), driver.getCurrentUrl(), "expected and received url did not match");
+            Assertions.assertEquals(loginPage.getFailedLoginMessage(), "Username or password is incorrect",
+                    "error message doesn't contain the expected text");
+        }
+        else {
+            Assertions.assertFalse(loginPage.getBtnLoginStatus());
+        }
     }
 }

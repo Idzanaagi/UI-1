@@ -5,6 +5,8 @@ target/
 
 ### IntelliJ IDEA ###
 .idea
+allure-results
+allure-report
 
 ### Eclipse ###
 .apt_generated

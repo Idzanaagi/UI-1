@@ -1,5 +1,6 @@
 package pages;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -14,6 +15,8 @@ public class LoginPage {
 
     public static WebDriver driver;
 
+    private final String loginPageUrl = "https://www.way2automation.com/angularjs-protractor/registeration/#/login";
+
     @FindBy(id = "username")
     private WebElement usernameField;
 
@@ -27,42 +30,47 @@ public class LoginPage {
     private WebElement btnLogin;
 
     @FindBy(css = "[ng-messages='form.username.$error']")
-    private WebElement usernameErrorMessage;
+    private WebElement usernameFieldMessage;
 
     @FindBy(css = "[ng-messages='form.password.$error']")
-    private WebElement passwordErrorMessage;
+    private WebElement passwordFieldMessage;
 
     @FindBy(className = "alert-danger")
     private WebElement failedLoginErrorMessage;
 
     @FindBy(id = "formly_1_input_username_0_description")
-    private WebElement usernameDescriptionTitle;
+    private WebElement usernameDescriptionFieldMessage;
 
     public LoginPage(WebDriver driver) {
         LoginPage.driver = driver;
         PageFactory.initElements(driver, this);
     }
 
+    @Step("open Login page")
     public LoginPage launch() {
-        driver.get("https://www.way2automation.com/angularjs-protractor/registeration/#/login");
+        driver.get(loginPageUrl);
         return this;
     }
 
+    @Step("fill the Username field with the value '{value}'")
     public LoginPage fillUsername(String value) {
         this.usernameField.sendKeys(value);
         return this;
     }
 
+    @Step("fill the Password field with the value '{value}'")
     public LoginPage fillPassword(String value) {
         passwordField.sendKeys(value);
         return this;
     }
 
+    @Step("fill the Username Description field with the value '{value}'")
     public LoginPage fillUsernameDescription(String value) {
         usernameDescriptionField.sendKeys(value);
         return this;
     }
 
+    @Step("click Login button")
     public LoginPage clickLoginBtn() {
         this.btnLogin.click();
         return this;
@@ -76,16 +84,21 @@ public class LoginPage {
         return btnLogin.isEnabled();
     }
 
+    @Step("remove focus from the last form field")
     public void removeFocusFromLastField() {
         usernameDescriptionField.sendKeys(Keys.TAB);
     }
 
-    public String getUsernameErrorMessage() {
-        return usernameErrorMessage.getText();
+    public String getUsernameFieldMessage() {
+        return usernameFieldMessage.getText();
     }
 
-    public String getPasswordErrorMessage() {
-        return passwordErrorMessage.getText();
+    public String getPasswordFieldMessage() {
+        return passwordFieldMessage.getText();
+    }
+
+    public String getUsernameDescriptionFieldMessage() {
+        return usernameDescriptionFieldMessage.getText();
     }
 
     public String getUsernameInputValue() {
@@ -97,11 +110,12 @@ public class LoginPage {
     }
 
     public String getUsernameDescriptionTitleColor() {
-        return usernameDescriptionTitle.getCssValue("color");
+        return usernameDescriptionFieldMessage.getCssValue("color");
     }
 
+    @Step("wait for Login page loading")
     public void waitLoginPageLoad() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        wait.until(ExpectedConditions.urlToBe("https://www.way2automation.com/angularjs-protractor/registeration/#/login"));
+        wait.until(ExpectedConditions.urlToBe(loginPageUrl));
     }
 }

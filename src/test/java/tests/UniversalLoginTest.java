@@ -7,8 +7,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-
-import java.util.Objects;
 import java.util.stream.Stream;
 
 import pages.HomePage;
@@ -54,13 +52,13 @@ public class UniversalLoginTest extends BaseTest {
                 .fillPassword(password)
                 .fillUsernameDescription(description)
                 .clickLoginBtn();
-        if (Objects.equals(name, invalidValue) || Objects.equals(password, invalidValue) ) {
+        if (invalidValue.equals(name) || invalidValue.equals(password)) {
             Assertions.assertEquals(readProperty("loginPageUrl"), driver.getCurrentUrl(), "expected and received url did not match");
             Assertions.assertEquals(loginPage.getFailedLoginMessage(), "Username or password is incorrect",
                     "error message doesn't contain the expected text");
         }
-        else if (Objects.equals(name, invalidLengthValue) || Objects.equals(password, invalidLengthValue) || Objects.equals(description, invalidLengthValue)
-                || Objects.equals(name, "") || Objects.equals(password, "") || Objects.equals(description, "")) {
+        else if (invalidLengthValue.equals(name) || invalidLengthValue.equals(password) || invalidLengthValue.equals(description)
+        || "".equals(name) || "".equals(password) || "".equals(description)) {
             Assertions.assertFalse(loginPage.isBtnLoginEnabled(), "Login button status is not 'Disabled'");
         }
         else {
@@ -68,20 +66,3 @@ public class UniversalLoginTest extends BaseTest {
         }
     }
 }
-
-/*
-        if (Objects.equals(name, invalidValue) || Objects.equals(password, invalidValue) ) {
-            Assertions.assertEquals(readProperty("loginPageUrl"), driver.getCurrentUrl(), "expected and received url did not match");
-            Assertions.assertEquals(loginPage.getFailedLoginMessage(), "Username or password is incorrect",
-                    "error message doesn't contain the expected text");
-        }
-        else if (Objects.equals(name, invalidLengthValue) || Objects.equals(password, invalidLengthValue) || Objects.equals(description, invalidLengthValue)) {
-            Assertions.assertFalse(loginPage.isBtnLoginEnabled(), "Login button status is not 'Disabled'");
-        }
-        else if (Objects.equals(name, "") || Objects.equals(password, "") || Objects.equals(description, "")) {
-            Assertions.assertFalse(loginPage.isBtnLoginEnabled(), "Login button status is not 'Disabled'");
-        }
-        else {
-            Assertions.assertEquals("Logout", homePage.getLogoutLinkText(), "Logout link doesn't contain the text 'Logout'");
-        }
- */

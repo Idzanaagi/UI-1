@@ -12,13 +12,7 @@ public final class DataProperties {
 
         static {
             try(FileInputStream ip = new FileInputStream(filePath)) {
-                Properties props = new Properties();
-                props.load(ip);
-                props.forEach((key1, value) -> {
-                    final String key = key1.toString();
-                    final String val = value.toString();
-                    properties.put(key, val);
-                });
+                properties.load(ip);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }

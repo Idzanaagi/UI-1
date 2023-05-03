@@ -52,16 +52,17 @@ public class UniversalLoginTest extends BaseTest {
                 .fillPassword(password)
                 .fillUsernameDescription(description)
                 .clickLoginBtn();
-        if (driver.getCurrentUrl().equals("https://www.way2automation.com/angularjs-protractor/registeration/#/")) {
-            Assertions.assertEquals("Logout", homePage.getLogoutLinkText(), "Logout link doesn't contain the text 'Logout'");
-        }
-        else if (loginPage.getBtnLoginStatus()) {
+        if (loginPage.isBtnLoginEnabled()) {
             Assertions.assertEquals(readProperty("loginPageUrl"), driver.getCurrentUrl(), "expected and received url did not match");
             Assertions.assertEquals(loginPage.getFailedLoginMessage(), "Username or password is incorrect",
                     "error message doesn't contain the expected text");
         }
+        else if (!loginPage.isBtnLoginEnabled()) {
+            Assertions.assertFalse(loginPage.isBtnLoginEnabled(), "Login button status is not 'Disabled'");
+        }
         else {
-            Assertions.assertFalse(loginPage.getBtnLoginStatus());
+            Assertions.assertEquals("Logout", homePage.getLogoutLinkText(), "Logout link doesn't contain the text 'Logout'");
         }
     }
 }
+

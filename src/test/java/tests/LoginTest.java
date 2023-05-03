@@ -76,7 +76,7 @@ public class LoginTest extends BaseTest {
         loginPage.launch()
                 .fillPassword(readProperty("validPassword"))
                 .fillUsernameDescription(readProperty("validUsernameDescription"));
-        Assertions.assertFalse(loginPage.getBtnLoginStatus(), "Login button status is not 'Disabled'");
+        Assertions.assertFalse(loginPage.isBtnLoginEnabled(), "Login button status is not 'Disabled'");
     }
 
     @Test
@@ -88,7 +88,7 @@ public class LoginTest extends BaseTest {
         loginPage.launch()
                 .fillUsername(readProperty("validUsername"))
                 .fillUsernameDescription(readProperty("validUsernameDescription"));
-        Assertions.assertFalse(loginPage.getBtnLoginStatus(), "Login button status is not 'Disabled'");
+        Assertions.assertFalse(loginPage.isBtnLoginEnabled(), "Login button status is not 'Disabled'");
     }
 
     @Test
@@ -100,7 +100,7 @@ public class LoginTest extends BaseTest {
         loginPage.launch()
                 .fillUsername(readProperty("validUsername"))
                 .fillPassword(readProperty("validPassword"));
-        Assertions.assertFalse(loginPage.getBtnLoginStatus(), "Login button status is not 'Disabled'");
+        Assertions.assertFalse(loginPage.isBtnLoginEnabled(), "Login button status is not 'Disabled'");
     }
 
     @Test

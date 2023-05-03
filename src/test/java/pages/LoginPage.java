@@ -80,7 +80,7 @@ public class LoginPage {
         return failedLoginErrorMessage.getText();
     }
 
-    public boolean getBtnLoginStatus() {
+    public boolean isBtnLoginEnabled() {
         return btnLogin.isEnabled();
     }
 

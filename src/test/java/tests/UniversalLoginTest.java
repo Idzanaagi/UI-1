@@ -4,6 +4,7 @@ import base.BaseTest;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Story;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -11,9 +12,12 @@ import java.util.stream.Stream;
 
 import pages.HomePage;
 import pages.LoginPage;
+import utils.TestListener;
+
 import static utils.DataProperties.readProperty;
 
 
+@ExtendWith(TestListener.class)
 @Epic("parametrized-login")
 public class UniversalLoginTest extends BaseTest {
 

@@ -20,9 +20,4 @@ public class BaseTest {
         System.setProperty("webdriver.chrome.driver", Objects.requireNonNull(getClass().getClassLoader().getResource("drivers/chromedriver.exe")).getFile());
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
     }
-
-    @AfterEach
-    public void close() {
-        driver.quit();
-    }
 }

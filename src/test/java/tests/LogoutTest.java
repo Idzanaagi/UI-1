@@ -8,11 +8,15 @@ import io.qameta.allure.Story;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import org.junit.jupiter.api.extension.ExtendWith;
 import pages.HomePage;
 import pages.LoginPage;
+import utils.TestListener;
+
 import static utils.DataProperties.readProperty;
 
 
+@ExtendWith(TestListener.class)
 @Epic("Logout")
 public class LogoutTest extends BaseTest {
 

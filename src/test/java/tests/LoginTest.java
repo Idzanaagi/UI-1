@@ -12,8 +12,8 @@ import org.openqa.selenium.support.Color;
 
 import pages.LoginPage;
 import pages.HomePage;
-import static utils.DataProperties.readProperty;
 
+import static utils.DataProperties.readProperty;
 
 @Epic("Login")
 public class LoginTest extends BaseTest {

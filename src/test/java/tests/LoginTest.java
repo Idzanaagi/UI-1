@@ -8,17 +8,13 @@ import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.openqa.selenium.support.Color;
 
 import pages.LoginPage;
 import pages.HomePage;
-import utils.TestListener;
 
 import static utils.DataProperties.readProperty;
 
-
-@ExtendWith(TestListener.class)
 @Epic("Login")
 public class LoginTest extends BaseTest {
 

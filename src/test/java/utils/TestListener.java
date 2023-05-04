@@ -16,18 +16,9 @@ import static base.BaseTest.driver;
 
 public class TestListener implements TestWatcher {
 
-    private File getScreenShotFromAShot() throws IOException {
-        File file = new File("screenshot", "tmp.png");
-        Screenshot screenshot = new AShot().takeScreenshot(driver);
-        ImageIO.write(screenshot.getImage(), "png", file);
-        return file;
-    }
-
     @Override
     public void testFailed(ExtensionContext context, Throwable cause) {
-
         File screenshotAs = null;
-
         try {
             screenshotAs = getScreenShotFromAShot();
             Allure.addAttachment("Screenshot", Files.newInputStream(screenshotAs.toPath()));
@@ -53,5 +44,12 @@ public class TestListener implements TestWatcher {
     public void testAborted(ExtensionContext context, Throwable cause) {
         TestWatcher.super.testAborted(context, cause);
         driver.close();
+    }
+
+    private File getScreenShotFromAShot() throws IOException {
+        File file = new File("screenshot", "tmp.png");
+        Screenshot screenshot = new AShot().takeScreenshot(driver);
+        ImageIO.write(screenshot.getImage(), "png", file);
+        return file;
     }
 }

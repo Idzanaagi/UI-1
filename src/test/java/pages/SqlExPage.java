@@ -11,16 +11,16 @@ public class SqlExPage extends BaseTest {
 
     private static final String sqlExUrl = "https://www.sql-ex.ru/index.php";
 
-    @FindBy(css = "input[name='login']")
+    @FindBy(css = "[name='login']")
     private WebElement loginField;
 
-    @FindBy(css = "input[name='psw']")
+    @FindBy(css = "[name='psw']")
     private WebElement passwordField;
 
-    @FindBy(css = "input[name='subm1']")
+    @FindBy(css = "[name='subm1']")
     private WebElement btnLogin;
 
-    @FindBy(linkText = "test5656")
+    @FindBy(css = "[href='/personal.php']")
     private WebElement personalLink;
 
     public SqlExPage(WebDriver driver) {
@@ -53,6 +53,6 @@ public class SqlExPage extends BaseTest {
 
     @Step("find link")
     public String checkPersonalLink() {
-        return personalLink.getAttribute("href");
+        return personalLink.getText();
     }
 }

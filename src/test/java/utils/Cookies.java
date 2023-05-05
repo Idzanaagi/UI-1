@@ -1,6 +1,12 @@
 package utils;
 
-import java.io.*;
+import org.openqa.selenium.Cookie;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.FileWriter;
 
 import static base.BaseTest.driver;
 
@@ -10,27 +16,29 @@ public class Cookies {
 
     File file = new File(filepath);
 
-    public String getCookie() {
+    public String getCookie(String value) throws IOException {
 
-        final String cookies = driver.manage().getCookieNamed("PHPSESSID").getValue();
+        final String cookies = driver.manage().getCookieNamed(value).getValue();
 
         String cookieValue = null;
 
         if (file.exists()) {
             try (BufferedReader reader = new BufferedReader(new FileReader(filepath))) {
                 cookieValue = reader.readLine();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
             }
         }
         else {
             try (FileWriter fileWriter = new FileWriter(filepath, false)) {
                 fileWriter.append(cookies);
                 fileWriter.flush();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
             }
         }
         return cookieValue;
+    }
+
+    public void setCookie(String expectedCookie) throws IOException {
+        Cookie setCookie = new Cookie(expectedCookie, getCookie(expectedCookie));
+        driver.manage().addCookie(setCookie);
+        driver.navigate().refresh();
     }
 }

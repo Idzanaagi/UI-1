@@ -13,7 +13,7 @@ import utils.TestListener;
 @ExtendWith(TestListener.class)
 public class BaseTest {
 
-    public static WebDriver driver;
+    public WebDriver driver;
 
     @BeforeEach
     public void setUp() {

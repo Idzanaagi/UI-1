@@ -1,37 +1,36 @@
 package pages;
 
-import base.BaseTest;
 import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-public class SqlExPage extends BaseTest {
+public class SqlExPage {
 
-    private static final String sqlExUrl = "https://www.sql-ex.ru/index.php";
+    WebDriver driver;
 
-    @FindBy(css = "[name='login']")
+    @FindBy(name = "login")
     private WebElement loginField;
 
-    @FindBy(css = "[name='psw']")
+    @FindBy(name = "psw")
     private WebElement passwordField;
 
-    @FindBy(css = "[name='subm1']")
+    @FindBy(name = "subm1")
     private WebElement btnLogin;
 
     @FindBy(css = "[href='/personal.php']")
     private WebElement personalLink;
 
     public SqlExPage(WebDriver driver) {
-        SqlExPage.driver = driver;
+        this.driver = driver;
         PageFactory.initElements(driver, this);
     }
 
     @Step("open SqlEx page")
-    public SqlExPage launch() {
+    public void launch() {
+        String sqlExUrl = "https://www.sql-ex.ru/index.php";
         driver.get(sqlExUrl);
-        return this;
     }
 
     @Step("fill the Login field with the value '{value}'")

@@ -1,44 +1,32 @@
 package utils;
 
-import org.openqa.selenium.Cookie;
-
+import org.openqa.selenium.WebDriver;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.FileWriter;
 
-import static base.BaseTest.driver;
 
 public class Cookies {
 
-    final private String filepath = "cookie.txt";
-
-    File file = new File(filepath);
-
-    public String getCookie(String value) throws IOException {
-
-        final String cookies = driver.manage().getCookieNamed(value).getValue();
-
+    public String readCookie(String filepath) throws IOException {
         String cookieValue = null;
-
-        if (file.exists()) {
-            try (BufferedReader reader = new BufferedReader(new FileReader(filepath))) {
-                cookieValue = reader.readLine();
-            }
-        }
-        else {
-            try (FileWriter fileWriter = new FileWriter(filepath, false)) {
-                fileWriter.append(cookies);
-                fileWriter.flush();
-            }
+        try (BufferedReader reader = new BufferedReader(new FileReader(filepath))) {
+            cookieValue = reader.readLine();
         }
         return cookieValue;
     }
 
-    public void setCookie(String expectedCookie) throws IOException {
-        Cookie setCookie = new Cookie(expectedCookie, getCookie(expectedCookie));
-        driver.manage().addCookie(setCookie);
-        driver.navigate().refresh();
+    public void writeCookie(String value, String filepath, WebDriver driver) throws IOException {
+        final String cookies = driver.manage().getCookieNamed(value).getValue();
+        try (FileWriter fileWriter = new FileWriter(filepath, false)) {
+            fileWriter.append(cookies);
+            fileWriter.flush();
+        }
+    }
+
+    public boolean isFileExist(String filepath) {
+        return new File(filepath).exists();
     }
 }

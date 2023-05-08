@@ -12,13 +12,13 @@ import java.time.Duration;
 
 public class HomePage {
 
-    public static WebDriver driver;
+    WebDriver driver;
 
     @FindBy(xpath = "//a")
     private WebElement logOut;
 
     public HomePage(WebDriver driver) {
-        HomePage.driver = driver;
+        this.driver = driver;
         PageFactory.initElements(driver, this);
     }
 

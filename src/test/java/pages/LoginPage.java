@@ -13,7 +13,7 @@ import java.time.Duration;
 
 public class LoginPage {
 
-    public static WebDriver driver;
+    WebDriver driver;
 
     private final String loginPageUrl = "https://www.way2automation.com/angularjs-protractor/registeration/#/login";
 
@@ -42,7 +42,7 @@ public class LoginPage {
     private WebElement usernameDescriptionFieldMessage;
 
     public LoginPage(WebDriver driver) {
-        LoginPage.driver = driver;
+        this.driver = driver;
         PageFactory.initElements(driver, this);
     }
 

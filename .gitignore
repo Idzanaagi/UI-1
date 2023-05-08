@@ -3,6 +3,10 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 
+### Local Files ###
+cookie.txt
+screenshot/tmp.png
+
 ### IntelliJ IDEA ###
 .idea
 allure-results

@@ -30,15 +30,15 @@ public class TestListener implements TestWatcher {
 
     @Override
     public void testDisabled(ExtensionContext context, Optional<String> reason) {
-        WebDriver driver = getCurrentDriver(context);
         TestWatcher.super.testDisabled(context, reason);
+        WebDriver driver = getCurrentDriver(context);
         driver.close();
     }
 
     @Override
     public void testSuccessful(ExtensionContext context) {
-        WebDriver driver = getCurrentDriver(context);
         TestWatcher.super.testSuccessful(context);
+        WebDriver driver = getCurrentDriver(context);
         driver.close();
     }
 

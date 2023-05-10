@@ -6,9 +6,9 @@ import java.io.FileReader;
 import java.io.IOException;
 
 
-public class Files {
+public class FileUtils {
 
-    static public String readFile(String filepath) throws IOException {
+    public static String readLine(String filepath) throws IOException {
         String value = null;
         try (BufferedReader reader = new BufferedReader(new FileReader(filepath))) {
             value = reader.readLine();
@@ -16,7 +16,7 @@ public class Files {
         return value;
     }
 
-    static public boolean isFileExist(String filepath) {
+    public static boolean isFileExist(String filepath) {
         return new File(filepath).exists();
     }
 }

@@ -8,7 +8,7 @@ import java.io.IOException;
 
 import pages.SqlExPage;
 import utils.Cookies;
-import utils.Files;
+import utils.FileUtils;
 
 
 public class CookieAuthorizationTest extends BaseTest {
@@ -19,8 +19,8 @@ public class CookieAuthorizationTest extends BaseTest {
         String authCookieName = "PHPSESSID";
         String filepath = "cookie.txt";
         sqlExPage.launch();
-        if (Files.isFileExist(filepath)) {
-            String cookieValue = Files.readFile(filepath);
+        if (FileUtils.isFileExist(filepath)) {
+            String cookieValue = FileUtils.readLine(filepath);
             Cookie cookie = new Cookie(authCookieName, cookieValue);
             driver.manage().addCookie(cookie);
             driver.navigate().refresh();

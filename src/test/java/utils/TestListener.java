@@ -15,14 +15,12 @@ import java.util.Optional;
 
 public class TestListener implements TestWatcher {
 
-    WebDriver driver;
-
     @Override
     public void testFailed(ExtensionContext context, Throwable cause) {
         File screenshotAs = null;
-        getCurrentDriver(context);
+        WebDriver driver = getCurrentDriver(context);
         try {
-            screenshotAs = getScreenShotFromAShot();
+            screenshotAs = getScreenShotFromAShot(driver);
             Allure.addAttachment("Screenshot", Files.newInputStream(screenshotAs.toPath()));
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -32,38 +30,40 @@ public class TestListener implements TestWatcher {
 
     @Override
     public void testDisabled(ExtensionContext context, Optional<String> reason) {
+        WebDriver driver = getCurrentDriver(context);
         TestWatcher.super.testDisabled(context, reason);
-        getCurrentDriver(context);
         driver.close();
     }
 
     @Override
     public void testSuccessful(ExtensionContext context) {
+        WebDriver driver = getCurrentDriver(context);
         TestWatcher.super.testSuccessful(context);
-        getCurrentDriver(context);
         driver.close();
     }
 
     @Override
     public void testAborted(ExtensionContext context, Throwable cause) {
         TestWatcher.super.testAborted(context, cause);
-        getCurrentDriver(context);
+        WebDriver driver = getCurrentDriver(context);
         driver.close();
     }
 
-    private File getScreenShotFromAShot() throws IOException {
+    private File getScreenShotFromAShot(WebDriver driver) throws IOException {
         File file = new File("screenshot", "tmp.png");
         Screenshot screenshot = new AShot().takeScreenshot(driver);
         ImageIO.write(screenshot.getImage(), "png", file);
         return file;
     }
 
-    private void getCurrentDriver(ExtensionContext context) {
+    private WebDriver getCurrentDriver(ExtensionContext context) {
+        WebDriver driver;
         Object instance = context.getRequiredTestInstance();
         try {
             driver = (WebDriver) instance.getClass().getField("driver").get(instance);
         } catch (IllegalAccessException | NoSuchFieldException e) {
             throw new RuntimeException(e);
         }
+        return driver;
     }
 }

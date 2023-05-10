@@ -15,4 +15,3 @@ public class ChromeDriverOptions {
         return options;
     }
 }
-

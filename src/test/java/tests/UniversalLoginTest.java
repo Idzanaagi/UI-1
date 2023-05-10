@@ -45,7 +45,7 @@ public class UniversalLoginTest extends BaseTest {
     @ParameterizedTest
     @Story("User logs in with valid and invalid data")
     @MethodSource("dataProvider")
-    void universalLogin(String name, String password, String description) throws InterruptedException {
+    void universalLogin(String name, String password, String description) {
         LoginPage loginPage = new LoginPage(driver);
         HomePage homePage = new HomePage(driver);
         loginPage.launch()

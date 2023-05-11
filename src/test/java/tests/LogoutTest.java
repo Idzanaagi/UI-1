@@ -29,6 +29,7 @@ public class LogoutTest extends BaseTest {
                 .fillUsernameDescription(readProperty("validUsernameDescription"))
                 .clickLoginBtn();
         homePage.clickLogoutBtn();
-        Assertions.assertEquals(driver.getCurrentUrl(), readProperty("loginPageUrl"), "expected and received url did not match");
+        Assertions.assertEquals(driver.getCurrentUrl(), readProperty("loginPageUrl"),
+                "expected and received url did not match");
     }
 }

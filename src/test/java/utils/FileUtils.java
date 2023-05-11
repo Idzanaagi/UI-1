@@ -8,7 +8,7 @@ import java.io.IOException;
 
 public class FileUtils {
 
-    public static String readLine(String filepath) throws IOException {
+    public static String readLine(final String filepath) throws IOException {
         String value = null;
         try (BufferedReader reader = new BufferedReader(new FileReader(filepath))) {
             value = reader.readLine();
@@ -16,7 +16,7 @@ public class FileUtils {
         return value;
     }
 
-    public static boolean isFileExist(String filepath) {
+    public static boolean isFileExist(final String filepath) {
         return new File(filepath).exists();
     }
 }

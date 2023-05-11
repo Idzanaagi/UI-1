@@ -1,6 +1,7 @@
 package pages;
 
 import io.qameta.allure.Step;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -13,7 +14,9 @@ import java.time.Duration;
 
 public class LoginPage {
 
-    WebDriver driver;
+    private final WebDriver driver;
+
+    private final JavascriptExecutor js;
 
     private final String loginPageUrl = "https://www.way2automation.com/angularjs-protractor/registeration/#/login";
 
@@ -41,8 +44,9 @@ public class LoginPage {
     @FindBy(id = "formly_1_input_username_0_description")
     private WebElement usernameDescriptionFieldMessage;
 
-    public LoginPage(WebDriver driver) {
+    public LoginPage(final WebDriver driver) {
         this.driver = driver;
+        this.js = (JavascriptExecutor) driver;
         PageFactory.initElements(driver, this);
     }
 
@@ -53,19 +57,19 @@ public class LoginPage {
     }
 
     @Step("fill the Username field with the value '{value}'")
-    public LoginPage fillUsername(String value) {
+    public LoginPage fillUsername(final String value) {
         this.usernameField.sendKeys(value);
         return this;
     }
 
     @Step("fill the Password field with the value '{value}'")
-    public LoginPage fillPassword(String value) {
+    public LoginPage fillPassword(final String value) {
         passwordField.sendKeys(value);
         return this;
     }
 
     @Step("fill the Username Description field with the value '{value}'")
-    public LoginPage fillUsernameDescription(String value) {
+    public LoginPage fillUsernameDescription(final String value) {
         usernameDescriptionField.sendKeys(value);
         return this;
     }
@@ -115,7 +119,25 @@ public class LoginPage {
 
     @Step("wait for Login page loading")
     public void waitLoginPageLoad() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        final int durationSeconds = 10;
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(durationSeconds));
         wait.until(ExpectedConditions.urlToBe(loginPageUrl));
+    }
+
+    @Step("remove the focus from the Username field with JS")
+    public void removeFocusFromUsernameFieldWithJS() {
+        this.js.executeScript("arguments[0].blur();", usernameField);
+    }
+
+    @Step()
+    public Long getClientSizeWithJS(final String value) {
+        String script = "return document.documentElement.client" + value + ";";
+        return (Long) js.executeScript(script);
+    }
+
+    @Step()
+    public Long getInnerSizeWithJS(final String value) {
+        String script = "return window.inner" + value + ";";
+        return (Long) js.executeScript(script);
     }
 }

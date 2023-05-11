@@ -12,12 +12,12 @@ import java.time.Duration;
 
 public class HomePage {
 
-    WebDriver driver;
+    private final WebDriver driver;
 
     @FindBy(xpath = "//a")
     private WebElement logOut;
 
-    public HomePage(WebDriver driver) {
+    public HomePage(final WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
     }
@@ -33,7 +33,8 @@ public class HomePage {
 
     @Step("wait for Home page loading")
     public void waitHomePageLoad() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        final int durationSeconds = 10;
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(durationSeconds));
         wait.until(ExpectedConditions.urlToBe("https://www.way2automation.com/angularjs-protractor/registeration/#/"));
     }
 }

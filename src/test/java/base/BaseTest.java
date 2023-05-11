@@ -17,9 +17,11 @@ public class BaseTest {
 
     @BeforeEach
     public void setUp() {
+        final int durationSeconds = 10;
         ChromeDriverOptions options = new ChromeDriverOptions();
         driver = new ChromeDriver(options.userOptions(false));
-        System.setProperty("webdriver.chrome.driver", Objects.requireNonNull(getClass().getClassLoader().getResource("drivers/chromedriver.exe")).getFile());
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        System.setProperty("webdriver.chrome.driver", Objects.requireNonNull(getClass()
+                .getClassLoader().getResource("drivers/chromedriver.exe")).getFile());
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(durationSeconds));
     }
 }

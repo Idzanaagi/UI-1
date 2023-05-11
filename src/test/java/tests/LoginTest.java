@@ -30,7 +30,8 @@ public class LoginTest extends BaseTest {
                 .fillUsernameDescription(readProperty("validUsernameDescription"))
                 .clickLoginBtn();
         homePage.waitHomePageLoad();
-        Assertions.assertEquals("Logout", homePage.getLogoutLinkText(), "Logout link doesn't contain the text 'Logout'");
+        Assertions.assertEquals("Logout", homePage.getLogoutLinkText(),
+                "Logout link doesn't contain the text 'Logout'");
     }
 
     @Test
@@ -45,7 +46,8 @@ public class LoginTest extends BaseTest {
                 .fillUsernameDescription(readProperty("validUsernameDescription"))
                 .clickLoginBtn()
                 .waitLoginPageLoad();
-        Assertions.assertEquals(readProperty("loginPageUrl"), driver.getCurrentUrl(), "expected and received url did not match");
+        Assertions.assertEquals(readProperty("loginPageUrl"), driver.getCurrentUrl(),
+                "expected and received url did not match");
         Assertions.assertEquals(loginPage.getFailedLoginMessage(), "Username or password is incorrect",
                 "error message doesn't contain the expected text");
     }
@@ -62,7 +64,8 @@ public class LoginTest extends BaseTest {
                 .fillUsernameDescription(readProperty("validUsernameDescription"))
                 .clickLoginBtn()
                 .waitLoginPageLoad();
-        Assertions.assertEquals(readProperty("loginPageUrl"), driver.getCurrentUrl(), "expected and received url did not match");
+        Assertions.assertEquals(readProperty("loginPageUrl"), driver.getCurrentUrl(),
+                "expected and received url did not match");
         Assertions.assertEquals("Username or password is incorrect", loginPage.getFailedLoginMessage(),
                 "error message doesn't contain the expected text");
     }
@@ -111,7 +114,7 @@ public class LoginTest extends BaseTest {
         LoginPage loginPage = new LoginPage(driver);
         loginPage.launch()
                 .fillUsername(readProperty("invalidLengthValue"));
-        Assertions.assertEquals( "Your username must be between 3 and 50 characters long", loginPage.getUsernameFieldMessage(),
+        Assertions.assertEquals("Your username must be between 3 and 50 characters long", loginPage.getUsernameFieldMessage(),
                 "error message doesn't match the expected one");
     }
 
@@ -123,7 +126,7 @@ public class LoginTest extends BaseTest {
         LoginPage loginPage = new LoginPage(driver);
         loginPage.launch()
                 .fillPassword(readProperty("invalidLengthValue"));
-        Assertions.assertEquals( "Your password must be between 3 and 100 characters long", loginPage.getPasswordFieldMessage(),
+        Assertions.assertEquals("Your password must be between 3 and 100 characters long", loginPage.getPasswordFieldMessage(),
                 "error message doesn't contain the expected text");
     }
 
@@ -146,9 +149,10 @@ public class LoginTest extends BaseTest {
     @Severity(SeverityLevel.NORMAL)
     public void overflowUsernameField() {
         LoginPage loginPage = new LoginPage(driver);
+        final int maxLength = 50;
         loginPage.launch()
                 .fillUsername("qlicyaykldhnpvdsmpdkblhblixgghmcknfqhodrorcnkuqhsdj");
-        Assertions.assertEquals( 50, loginPage.getUsernameInputValue().length(),
+        Assertions.assertEquals(maxLength, loginPage.getUsernameInputValue().length(),
                 "resulting value length is not equal to 50");
     }
 
@@ -158,9 +162,11 @@ public class LoginTest extends BaseTest {
     @Severity(SeverityLevel.NORMAL)
     public void overflowPasswordField() {
         LoginPage loginPage = new LoginPage(driver);
+        final int maxLength = 100;
         loginPage.launch()
                 .fillPassword("qlicyaykldhnpvdsmpdkblhblixgghmcknfqhodrorcnkuqhsdjqlicyaykldhnpvdsmpdkblhblixgghmcknfqhodrorcnkuqhsdj");
-        Assertions.assertEquals(100, loginPage.getPasswordInputValue().length(), "the resulting value length is not equal to 50");
+        Assertions.assertEquals(maxLength, loginPage.getPasswordInputValue().length(),
+                "the resulting value length is not equal to 50");
     }
 
     @Test
@@ -170,7 +176,8 @@ public class LoginTest extends BaseTest {
     public void hintToEmptyUsernameField() {
         LoginPage loginPage = new LoginPage(driver);
         loginPage.launch();
-        Assertions.assertEquals("You did not enter a username", loginPage.getUsernameFieldMessage(),"the hint text doesn't match");
+        Assertions.assertEquals("You did not enter a username", loginPage.getUsernameFieldMessage(),
+                "the hint text doesn't match");
     }
 
     @Test
@@ -180,7 +187,8 @@ public class LoginTest extends BaseTest {
     public void hintToEmptyPasswordField() {
         LoginPage loginPage = new LoginPage(driver);
         loginPage.launch();
-        Assertions.assertEquals("You did not enter a password", loginPage.getPasswordFieldMessage(),"the hint text doesn't match");
+        Assertions.assertEquals("You did not enter a password", loginPage.getPasswordFieldMessage(),
+                "the hint text doesn't match");
     }
 
     @Test
@@ -190,6 +198,7 @@ public class LoginTest extends BaseTest {
     public void hintToEmptyUsernameDescriptionField() {
         LoginPage loginPage = new LoginPage(driver);
         loginPage.launch();
-        Assertions.assertEquals("username description", loginPage.getUsernameDescriptionFieldMessage(),  "the hint text doesn't match");
+        Assertions.assertEquals("username description", loginPage.getUsernameDescriptionFieldMessage(),
+                "the hint text doesn't match");
     }
 }

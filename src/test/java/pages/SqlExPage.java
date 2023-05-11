@@ -8,7 +8,7 @@ import org.openqa.selenium.support.PageFactory;
 
 public class SqlExPage {
 
-    WebDriver driver;
+    private final WebDriver driver;
 
     @FindBy(name = "login")
     private WebElement loginField;
@@ -22,7 +22,7 @@ public class SqlExPage {
     @FindBy(css = "[href='/personal.php']")
     private WebElement personalLink;
 
-    public SqlExPage(WebDriver driver) {
+    public SqlExPage(final WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
     }
@@ -34,13 +34,13 @@ public class SqlExPage {
     }
 
     @Step("fill the Login field with the value '{value}'")
-    public SqlExPage fillLogin(String value) {
+    public SqlExPage fillLogin(final String value) {
         this.loginField.sendKeys(value);
         return this;
     }
 
     @Step("fill the Password field with the value '{value}'")
-    public SqlExPage fillPassword(String value) {
+    public SqlExPage fillPassword(final String value) {
         this.passwordField.sendKeys(value);
         return this;
     }

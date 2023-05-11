@@ -16,7 +16,7 @@ import java.util.Optional;
 public class TestListener implements TestWatcher {
 
     @Override
-    public void testFailed(ExtensionContext context, Throwable cause) {
+    public void testFailed(final ExtensionContext context, final Throwable cause) {
         File screenshotAs = null;
         WebDriver driver = getCurrentDriver(context);
         try {
@@ -29,34 +29,34 @@ public class TestListener implements TestWatcher {
     }
 
     @Override
-    public void testDisabled(ExtensionContext context, Optional<String> reason) {
+    public void testDisabled(final ExtensionContext context, final Optional<String> reason) {
         TestWatcher.super.testDisabled(context, reason);
         WebDriver driver = getCurrentDriver(context);
         driver.close();
     }
 
     @Override
-    public void testSuccessful(ExtensionContext context) {
+    public void testSuccessful(final ExtensionContext context) {
         TestWatcher.super.testSuccessful(context);
         WebDriver driver = getCurrentDriver(context);
         driver.close();
     }
 
     @Override
-    public void testAborted(ExtensionContext context, Throwable cause) {
+    public void testAborted(final ExtensionContext context, final Throwable cause) {
         TestWatcher.super.testAborted(context, cause);
         WebDriver driver = getCurrentDriver(context);
         driver.close();
     }
 
-    private File getScreenShotFromAShot(WebDriver driver) throws IOException {
+    private File getScreenShotFromAShot(final WebDriver driver) throws IOException {
         File file = new File("screenshot", "tmp.png");
         Screenshot screenshot = new AShot().takeScreenshot(driver);
         ImageIO.write(screenshot.getImage(), "png", file);
         return file;
     }
 
-    private WebDriver getCurrentDriver(ExtensionContext context) {
+    private WebDriver getCurrentDriver(final ExtensionContext context) {
         WebDriver driver;
         Object instance = context.getRequiredTestInstance();
         try {

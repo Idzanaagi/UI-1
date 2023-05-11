@@ -24,14 +24,15 @@ public class CookieAuthorizationTest extends BaseTest {
             Cookie cookie = new Cookie(authCookieName, cookieValue);
             driver.manage().addCookie(cookie);
             driver.navigate().refresh();
-        }
-        else {
+        } else {
             sqlExPage.fillLogin("co-test")
                     .fillPassword("test56")
                     .clickLoginBtn();
             Cookies.writeCookie(authCookieName, filepath, driver);
         }
-        Assertions.assertEquals("https://www.sql-ex.ru/index.php", driver.getCurrentUrl(), "expected and received url did not match");
-        Assertions.assertEquals("test5656", sqlExPage.checkPersonalLink(), "no link to the account settings was found");
+        Assertions.assertEquals("https://www.sql-ex.ru/index.php", driver.getCurrentUrl(),
+                "expected and received url did not match");
+        Assertions.assertEquals("test5656", sqlExPage.checkPersonalLink(),
+                "no link to the account settings was found");
     }
 }

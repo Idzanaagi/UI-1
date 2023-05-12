@@ -6,9 +6,20 @@ import java.io.FileReader;
 import java.io.IOException;
 
 
-public class FileUtils {
+/** The type File utils. */
+public final class FileUtils {
 
-    public static String readLine(String filepath) throws IOException {
+    private FileUtils() {
+        throw new IllegalStateException("Utility class");
+    }
+
+    /**
+     * Reads and returns the value of a cookie from a file.
+     * @param filepath the path to the file with cookie
+     * @return the string with cookie value
+     * @throws IOException the io exception
+     */
+    public static String readLine(final String filepath) throws IOException {
         String value = null;
         try (BufferedReader reader = new BufferedReader(new FileReader(filepath))) {
             value = reader.readLine();
@@ -16,7 +27,12 @@ public class FileUtils {
         return value;
     }
 
-    public static boolean isFileExist(String filepath) {
+    /**
+     * Check for the existence of a file.
+     * @param filepath the path to the file the existence of which need to check
+     * @return the boolean (file exists or no)
+     */
+    public static boolean isFileExist(final String filepath) {
         return new File(filepath).exists();
     }
 }

@@ -23,7 +23,7 @@ public class JSExecutorTest extends BaseTest {
         basePage.launch("https://www.way2automation.com/angularjs-protractor/registeration/#/login");
         loginPage.fillUsername("value")
                 .removeFocusFromUsernameField();
-        Assertions.assertTrue(loginPage.isNoFocusUsernameField());
+        Assertions.assertFalse(loginPage.isFocusUsernameField());
     }
 
     /** Is scroll page check. */
@@ -34,10 +34,10 @@ public class JSExecutorTest extends BaseTest {
         final String pageWithScroll = "https://javascript.info/size-and-scroll-window";
         JavaScriptExecutor javaScriptExecutor = new JavaScriptExecutor(getDriver());
         getDriver().get(pageWithoutScroll);
-        Long innerSizeWidth = javaScriptExecutor.getInnerSize("Width");
-        Long clientSizeWidth = javaScriptExecutor.getClientSize("Width");
-        Long innerSizeHeight = javaScriptExecutor.getInnerSize("Height");
-        Long clientSizeHeight = javaScriptExecutor.getClientSize("Height");
+        Long innerSizeWidth = javaScriptExecutor.getInnerSize("WIDTH");
+        Long clientSizeWidth = javaScriptExecutor.getClientSize("WIDTH");
+        Long innerSizeHeight = javaScriptExecutor.getInnerSize("HEIGHT");
+        Long clientSizeHeight = javaScriptExecutor.getClientSize("HEIGHT");
         Assertions.assertEquals(innerSizeWidth, clientSizeWidth,
                 "there is a vertical scroll");
         Assertions.assertEquals(innerSizeHeight, clientSizeHeight,

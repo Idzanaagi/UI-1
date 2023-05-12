@@ -13,10 +13,21 @@ public class JavaScriptExecutor {
     /** The enum Params. Defines valid input parameters for methods getClientSize, getInnerSize, generateScript. */
     private enum Params {
         /** Width params. */
-        Width,
+        WIDTH("Width"),
         /** Height params. */
-        Height;
+        HEIGHT("Height");
+
+        /** The ValidParams. */
+        private final String valueParams;
+
+        /** The Value Params.
+         * @param value the value
+         * */
+        Params(final String value) {
+            this.valueParams = value;
+        }
     }
+
 
     /**
      * Instantiates a new Java script executor.
@@ -37,7 +48,7 @@ public class JavaScriptExecutor {
 
     /**
      * Gets client size.
-     * @param value the value (correct - Width or Height)
+     * @param value the value (correct - WIDTH or HEIGHT)
      * @return the client size
      */
     public Long getClientSize(final String value) {
@@ -48,7 +59,7 @@ public class JavaScriptExecutor {
 
     /**
      * Gets inner size.
-     * @param value the value (correct - Width or Height)
+     * @param value the value (correct - WIDTH or HEIGHT)
      * @return the inner size
      */
     public Long getInnerSize(final String value) {
@@ -58,14 +69,6 @@ public class JavaScriptExecutor {
     }
 
     private String generateScript(final String baseScript, final String value) {
-        String script;
-        if (Params.Width.toString().equals(value)) {
-            script = baseScript + "Width" + ";";
-        } else if (Params.Height.toString().equals(value)) {
-            script = baseScript + "Height" + ";";
-        } else {
-            throw new IllegalArgumentException("Illegal Argument: " + value);
-        }
-        return script;
+        return baseScript + Params.valueOf(value).valueParams + ";";
     }
 }

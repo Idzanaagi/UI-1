@@ -7,13 +7,14 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import utils.JavaScriptExecutor;
 
 
 /** The type Login page. */
 public class LoginPage extends BasePage {
 
-    /** The JavascriptExecutor. */
-    private final JavascriptExecutor js;
+    /** The Driver. */
+    private final WebDriver driver;
 
     /** Field - username. */
     @FindBy(id = "username")
@@ -53,7 +54,8 @@ public class LoginPage extends BasePage {
      */
     public LoginPage(final WebDriver webDriver) {
         super(webDriver);
-        this.js = (JavascriptExecutor) webDriver;
+        this.driver = webDriver;
+        JavascriptExecutor javascriptExecutor = (JavascriptExecutor) driver;
     }
 
     /**
@@ -171,29 +173,16 @@ public class LoginPage extends BasePage {
 
     /** Remove focus from username field with js. */
     @Step("remove the focus from the Username field with JS")
-    public void removeFocusFromUsernameFieldWithJS() {
-        this.js.executeScript("arguments[0].blur();", usernameField);
+    public void removeFocusFromUsernameField() {
+        JavaScriptExecutor ja = new JavaScriptExecutor(driver);
+        ja.blurElement(usernameField);
     }
 
     /**
-     * Gets documentElement.client size with js.
-     * @param value the value (valid options - length or width)
-     * @return the client size with js
+     * Is no focus boolean.
+     * @return the boolean (true - no focus, false - have a focus)
      */
-    @Step()
-    public Long getClientSizeWithJS(final String value) {
-        String script = "return document.documentElement.client" + value + ";";
-        return (Long) js.executeScript(script);
-    }
-
-    /**
-     * Gets window.inner size with js.
-     * @param value the value (valid options - length or width)
-     * @return the window inner size with js
-     */
-    @Step()
-    public Long getInnerSizeWithJS(final String value) {
-        String script = "return window.inner" + value + ";";
-        return (Long) js.executeScript(script);
+    public boolean isNoFocus() {
+        return !usernameField.equals(driver.switchTo().activeElement());
     }
 }

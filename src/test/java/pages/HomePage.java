@@ -1,40 +1,38 @@
 package pages;
 
+import base.BasePage;
 import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import java.time.Duration;
 
 
-public class HomePage {
+/** The type Home page. */
+public class HomePage extends BasePage {
 
-    private final WebDriver driver;
-
+    /** Field - link logout. */
     @FindBy(xpath = "//a")
     private WebElement logOut;
 
-    public HomePage(final WebDriver driver) {
-        this.driver = driver;
-        PageFactory.initElements(driver, this);
+    /**
+     * Instantiates a new Home page.
+     * @param webDriver the driver
+     */
+    public HomePage(final WebDriver webDriver) {
+        super(webDriver);
     }
 
+    /**
+     * Gets logout link text.
+     * @return the logout link text
+     */
     public String getLogoutLinkText() {
         return logOut.getText();
     }
 
+    /** Click logout btn. */
     @Step("click Logout button")
     public void clickLogoutBtn() {
         logOut.click();
-    }
-
-    @Step("wait for Home page loading")
-    public void waitHomePageLoad() {
-        final int durationSeconds = 10;
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(durationSeconds));
-        wait.until(ExpectedConditions.urlToBe("https://www.way2automation.com/angularjs-protractor/registeration/#/"));
     }
 }

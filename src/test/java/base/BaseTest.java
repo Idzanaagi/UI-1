@@ -10,11 +10,14 @@ import java.util.Objects;
 import utils.ChromeDriverOptions;
 import utils.TestListener;
 
+/** The type Base test. Creates driver, adds driver options, sets implicitlyWait. */
 @ExtendWith(TestListener.class)
 public class BaseTest {
 
-    public WebDriver driver;
+    /** The Driver. */
+    private WebDriver driver;
 
+    /** Sets up. Create Driver, adds driver options, sets implicitlyWait */
     @BeforeEach
     public void setUp() {
         final int durationSeconds = 10;
@@ -23,5 +26,13 @@ public class BaseTest {
         System.setProperty("webdriver.chrome.driver", Objects.requireNonNull(getClass()
                 .getClassLoader().getResource("drivers/chromedriver.exe")).getFile());
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(durationSeconds));
+    }
+
+    /**
+     * Gets driver.
+     * @return the driver
+     */
+    public WebDriver getDriver() {
+        return driver;
     }
 }

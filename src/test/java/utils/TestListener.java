@@ -9,12 +9,16 @@ import ru.yandex.qatools.ashot.Screenshot;
 import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.nio.file.Files;
 import java.util.Optional;
 
 
+/** The type Test listener. */
 public class TestListener implements TestWatcher {
 
+    /** Override testFailed. Attach a screenshot to the report. */
     @Override
     public void testFailed(final ExtensionContext context, final Throwable cause) {
         File screenshotAs = null;
@@ -28,6 +32,7 @@ public class TestListener implements TestWatcher {
         driver.close();
     }
 
+    /** Override testDisabled, driver close. */
     @Override
     public void testDisabled(final ExtensionContext context, final Optional<String> reason) {
         TestWatcher.super.testDisabled(context, reason);
@@ -35,6 +40,7 @@ public class TestListener implements TestWatcher {
         driver.close();
     }
 
+    /** Override testSuccessful, driver close. */
     @Override
     public void testSuccessful(final ExtensionContext context) {
         TestWatcher.super.testSuccessful(context);
@@ -42,6 +48,7 @@ public class TestListener implements TestWatcher {
         driver.close();
     }
 
+    /** Override testAborted, driver close. */
     @Override
     public void testAborted(final ExtensionContext context, final Throwable cause) {
         TestWatcher.super.testAborted(context, cause);
@@ -49,6 +56,10 @@ public class TestListener implements TestWatcher {
         driver.close();
     }
 
+    /** Take a screenshot.
+     * @param driver driver
+     * @return File
+     * */
     private File getScreenShotFromAShot(final WebDriver driver) throws IOException {
         File file = new File("screenshot", "tmp.png");
         Screenshot screenshot = new AShot().takeScreenshot(driver);
@@ -56,12 +67,18 @@ public class TestListener implements TestWatcher {
         return file;
     }
 
+    /** Get current driver.
+     * @param context context
+     * @return driver
+     * */
     private WebDriver getCurrentDriver(final ExtensionContext context) {
         WebDriver driver;
         Object instance = context.getRequiredTestInstance();
         try {
-            driver = (WebDriver) instance.getClass().getField("driver").get(instance);
-        } catch (IllegalAccessException | NoSuchFieldException e) {
+            Method getDriver = instance.getClass().getSuperclass().getMethod("getDriver");
+            getDriver.setAccessible(true);
+            driver = (WebDriver) getDriver.invoke(instance);
+        } catch (NoSuchMethodException | SecurityException | IllegalAccessException | InvocationTargetException e) {
             throw new RuntimeException(e);
         }
         return driver;

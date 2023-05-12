@@ -1,140 +1,196 @@
 package pages;
 
+import base.BasePage;
 import io.qameta.allure.Step;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import java.time.Duration;
 
 
-public class LoginPage {
+/** The type Login page. */
+public class LoginPage extends BasePage {
 
-    private final WebDriver driver;
-
+    /** The JavascriptExecutor. */
     private final JavascriptExecutor js;
 
-    private final String loginPageUrl = "https://www.way2automation.com/angularjs-protractor/registeration/#/login";
-
+    /** Field - username. */
     @FindBy(id = "username")
     private WebElement usernameField;
 
+    /** Field - password. */
     @FindBy(id = "password")
     private WebElement passwordField;
 
+    /** Field - username description. */
     @FindBy(id = "formly_1_input_username_0")
     private WebElement usernameDescriptionField;
 
+    /** Field - button login. */
     @FindBy(className = "btn")
     private WebElement btnLogin;
 
+    /** Field - username message. */
     @FindBy(css = "[ng-messages='form.username.$error']")
     private WebElement usernameFieldMessage;
 
+    /** Field - password message. */
     @FindBy(css = "[ng-messages='form.password.$error']")
     private WebElement passwordFieldMessage;
 
+    /** Field - message about failed login. */
     @FindBy(className = "alert-danger")
     private WebElement failedLoginErrorMessage;
 
+    /** Field - username description message. */
     @FindBy(id = "formly_1_input_username_0_description")
     private WebElement usernameDescriptionFieldMessage;
 
-    public LoginPage(final WebDriver driver) {
-        this.driver = driver;
-        this.js = (JavascriptExecutor) driver;
-        PageFactory.initElements(driver, this);
+    /**
+     * Instantiates a new Login page.
+     * @param webDriver the driver
+     */
+    public LoginPage(final WebDriver webDriver) {
+        super(webDriver);
+        this.js = (JavascriptExecutor) webDriver;
     }
 
-    @Step("open Login page")
-    public LoginPage launch() {
-        driver.get(loginPageUrl);
-        return this;
-    }
-
+    /**
+     * Fill username login page.
+     * @param value the username value
+     * @return the login page
+     */
     @Step("fill the Username field with the value '{value}'")
     public LoginPage fillUsername(final String value) {
         this.usernameField.sendKeys(value);
         return this;
     }
 
+    /**
+     * Fill password login page.
+     * @param value the password value
+     * @return the login page
+     */
     @Step("fill the Password field with the value '{value}'")
     public LoginPage fillPassword(final String value) {
         passwordField.sendKeys(value);
         return this;
     }
 
+    /**
+     * Fill username description login page.
+     * @param value the username description value
+     * @return the login page
+     */
     @Step("fill the Username Description field with the value '{value}'")
     public LoginPage fillUsernameDescription(final String value) {
         usernameDescriptionField.sendKeys(value);
         return this;
     }
 
+    /**
+     * Click login btn login page.
+     * @return the login page
+     */
     @Step("click Login button")
     public LoginPage clickLoginBtn() {
         this.btnLogin.click();
         return this;
     }
 
+    /**
+     * Gets failed login message.
+     * @return the failed login message
+     */
     public String getFailedLoginMessage() {
         return failedLoginErrorMessage.getText();
     }
 
+    /**
+     * Is btn login enabled boolean.
+     * @return the boolean
+     */
     public boolean isBtnLoginEnabled() {
         return btnLogin.isEnabled();
     }
 
+    /** Remove focus from last field. */
     @Step("remove focus from the last form field")
     public void removeFocusFromLastField() {
         usernameDescriptionField.sendKeys(Keys.TAB);
     }
 
+    /**
+     * Gets username field message.
+     * @return the username field message
+     */
     public String getUsernameFieldMessage() {
         return usernameFieldMessage.getText();
     }
 
+    /**
+     * Gets password field message.
+     * @return the password field message
+     */
     public String getPasswordFieldMessage() {
         return passwordFieldMessage.getText();
     }
 
+    /**
+     * Gets username description field message.
+     * @return the username description field message
+     */
     public String getUsernameDescriptionFieldMessage() {
         return usernameDescriptionFieldMessage.getText();
     }
 
+    /**
+     * Gets username input value.
+     * @return the username input value
+     */
     public String getUsernameInputValue() {
         return usernameField.getAttribute("value");
     }
 
+    /**
+     * Gets password input value.
+     * @return the password input value
+     */
     public String getPasswordInputValue() {
         return passwordField.getAttribute("value");
     }
 
+    /**
+     * Gets username description title color.
+     * @return the username description title color
+     */
     public String getUsernameDescriptionTitleColor() {
         return usernameDescriptionFieldMessage.getCssValue("color");
     }
 
-    @Step("wait for Login page loading")
-    public void waitLoginPageLoad() {
-        final int durationSeconds = 10;
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(durationSeconds));
-        wait.until(ExpectedConditions.urlToBe(loginPageUrl));
-    }
-
+    /** Remove focus from username field with js. */
     @Step("remove the focus from the Username field with JS")
     public void removeFocusFromUsernameFieldWithJS() {
         this.js.executeScript("arguments[0].blur();", usernameField);
     }
 
+    /**
+     * Gets documentElement.client size with js.
+     * @param value the value (valid options - length or width)
+     * @return the client size with js
+     */
     @Step()
     public Long getClientSizeWithJS(final String value) {
         String script = "return document.documentElement.client" + value + ";";
         return (Long) js.executeScript(script);
     }
 
+    /**
+     * Gets window.inner size with js.
+     * @param value the value (valid options - length or width)
+     * @return the window inner size with js
+     */
     @Step()
     public Long getInnerSizeWithJS(final String value) {
         String script = "return window.inner" + value + ";";

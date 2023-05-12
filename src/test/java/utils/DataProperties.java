@@ -5,11 +5,14 @@ import java.io.IOException;
 import java.util.Properties;
 
 
+/** The type Data properties. */
 public final class DataProperties {
 
-    final private static Properties PROPERTIES = new Properties();
+    /** Constant PROPERTIES, value - new Properties(). */
+    private static final Properties PROPERTIES = new Properties();
 
-    final private static String FILE_PATH = "src/test/java/resources/testData.properties";
+    /** Constant FILE_PATH, value - path to property file with test data. */
+    private static final String FILE_PATH = "src/test/java/resources/testData.properties";
 
         static {
             try (FileInputStream ip = new FileInputStream(FILE_PATH)) {
@@ -19,7 +22,16 @@ public final class DataProperties {
             }
         }
 
-    static public String readProperty(final String value) {
-        return PROPERTIES.getProperty(value);
+    private DataProperties() {
+        throw new IllegalStateException("Utility class");
+    }
+
+    /**
+     * Returns the value of property.
+     * @param key property key
+     * @return the string with value property
+     */
+    public static String readProperty(final String key) {
+        return PROPERTIES.getProperty(key);
     }
 }

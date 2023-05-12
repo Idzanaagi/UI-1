@@ -1,5 +1,6 @@
 package tests;
 
+import base.BasePage;
 import base.BaseTest;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Severity;
@@ -17,19 +18,22 @@ import static utils.DataProperties.readProperty;
 @Epic("Logout")
 public class LogoutTest extends BaseTest {
 
+
+    /** Logout successfully. */
     @Test
     @Story("User is successfully logged out")
     @Severity(SeverityLevel.CRITICAL)
     public void logoutSuccessfully()  {
-        LoginPage loginPage = new LoginPage(driver);
-        HomePage homePage = new HomePage(driver);
-        loginPage.launch()
-                .fillUsername(readProperty("validUsername"))
+        LoginPage loginPage = new LoginPage(getDriver());
+        HomePage homePage = new HomePage(getDriver());
+        BasePage basePage = new BasePage(getDriver());
+        basePage.launch(readProperty("loginPageUrl"));
+        loginPage.fillUsername(readProperty("validUsername"))
                 .fillPassword(readProperty("validPassword"))
                 .fillUsernameDescription(readProperty("validUsernameDescription"))
                 .clickLoginBtn();
         homePage.clickLogoutBtn();
-        Assertions.assertEquals(driver.getCurrentUrl(), readProperty("loginPageUrl"),
+        Assertions.assertEquals(getDriver().getCurrentUrl(), readProperty("loginPageUrl"),
                 "expected and received url did not match");
     }
 }

@@ -28,7 +28,6 @@ public class JavaScriptExecutor {
         }
     }
 
-
     /**
      * Instantiates a new Java script executor.
      * @param driver the driver
@@ -53,7 +52,7 @@ public class JavaScriptExecutor {
      */
     public Long getClientSize(final String value) {
         String jsGetClientSizeScript = "return document.documentElement.client";
-        String script = generateScript(jsGetClientSizeScript, value);
+        String script = jsGetClientSizeScript + Params.valueOf(value).valueParams + ";";
         return (Long) js.executeScript(script);
     }
 
@@ -64,11 +63,7 @@ public class JavaScriptExecutor {
      */
     public Long getInnerSize(final String value) {
         String jsGetInnerSizeScript = "return window.inner";
-        String script = generateScript(jsGetInnerSizeScript, value);
+        String script = jsGetInnerSizeScript + Params.valueOf(value).valueParams + ";";
         return (Long) js.executeScript(script);
-    }
-
-    private String generateScript(final String baseScript, final String value) {
-        return baseScript + Params.valueOf(value).valueParams + ";";
     }
 }

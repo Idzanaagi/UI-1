@@ -182,7 +182,7 @@ public class LoginPage extends BasePage {
      * Is no focus boolean.
      * @return the boolean (true - no focus, false - have a focus)
      */
-    public boolean isNoFocus() {
+    public boolean isNoFocusUsernameField() {
         return !usernameField.equals(driver.switchTo().activeElement());
     }
 }

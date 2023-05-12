@@ -23,7 +23,7 @@ public class JSExecutorTest extends BaseTest {
         basePage.launch("https://www.way2automation.com/angularjs-protractor/registeration/#/login");
         loginPage.fillUsername("value")
                 .removeFocusFromUsernameField();
-        Assertions.assertTrue(loginPage.isNoFocus());
+        Assertions.assertTrue(loginPage.isNoFocusUsernameField());
     }
 
     /** Is scroll page check. */

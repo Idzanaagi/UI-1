@@ -29,7 +29,7 @@ public class TestListener implements TestWatcher {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        driver.close();
+        driver.quit();
     }
 
     /** Override testDisabled, driver close. */
@@ -37,7 +37,7 @@ public class TestListener implements TestWatcher {
     public void testDisabled(final ExtensionContext context, final Optional<String> reason) {
         TestWatcher.super.testDisabled(context, reason);
         WebDriver driver = getCurrentDriver(context);
-        driver.close();
+        driver.quit();
     }
 
     /** Override testSuccessful, driver close. */
@@ -45,7 +45,7 @@ public class TestListener implements TestWatcher {
     public void testSuccessful(final ExtensionContext context) {
         TestWatcher.super.testSuccessful(context);
         WebDriver driver = getCurrentDriver(context);
-        driver.close();
+        driver.quit();
     }
 
     /** Override testAborted, driver close. */
@@ -53,7 +53,7 @@ public class TestListener implements TestWatcher {
     public void testAborted(final ExtensionContext context, final Throwable cause) {
         TestWatcher.super.testAborted(context, cause);
         WebDriver driver = getCurrentDriver(context);
-        driver.close();
+        driver.quit();
     }
 
     /** Take a screenshot.

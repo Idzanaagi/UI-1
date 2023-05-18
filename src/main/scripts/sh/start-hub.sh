@@ -1,0 +1,1 @@
+java -jar ./src/main/resources/selenium-server/selenium-server-4.9.0.jar hub

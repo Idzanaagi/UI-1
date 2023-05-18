@@ -59,6 +59,13 @@
             <version>1.5.4</version>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/org.aeonbits.owner/owner -->
+        <dependency>
+            <groupId>org.aeonbits.owner</groupId>
+            <artifactId>owner</artifactId>
+            <version>1.0.12</version>
+        </dependency>
+
     </dependencies>
 
     <build>
@@ -124,7 +131,7 @@
                 <configuration>
                     <includeTestResources>true</includeTestResources>
                     <sourceDirectories>src/</sourceDirectories>
-                    <configLocation>sun_checks.xml</configLocation>
+                    <configLocation>sun_checks_config.xml</configLocation>
                 </configuration>
                 <reportSets>
                     <reportSet>
@@ -136,5 +143,30 @@
             </plugin>
         </plugins>
     </reporting>
+
+    <profiles>
+        <profile>
+            <id>parallel</id>
+            <properties>
+            </properties>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <version>3.0.0</version>
+                        <configuration>
+                            <parallel>classes</parallel>
+                            <forkCount>5</forkCount>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+
 
 </project>

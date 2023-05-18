@@ -1,14 +1,15 @@
 package base;
 
+import factory.DriverFactoryManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import java.time.Duration;
-import java.util.Objects;
 
-import utils.ChromeDriverOptions;
+import java.time.Duration;
+
 import utils.TestListener;
+
+import static factory.props.ConfigurationManager.configuration;
 
 /** The type Base test. Creates driver, adds driver options, sets implicitlyWait. */
 @ExtendWith(TestListener.class)
@@ -17,14 +18,13 @@ public class BaseTest {
     /** The Driver. */
     private WebDriver driver;
 
-    /** Sets up. Create Driver, adds driver options, sets implicitlyWait */
+    /**
+     * Sets .
+     */
     @BeforeEach
-    public void setUp() {
+    public void setup() {
         final int durationSeconds = 10;
-        ChromeDriverOptions options = new ChromeDriverOptions();
-        driver = new ChromeDriver(options.userOptions(false));
-        System.setProperty("webdriver.chrome.driver", Objects.requireNonNull(getClass()
-                .getClassLoader().getResource("drivers/chromedriver.exe")).getFile());
+        driver = DriverFactoryManager.getFactory().createDriverInstance(configuration().operatingSystem());
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(durationSeconds));
     }
 

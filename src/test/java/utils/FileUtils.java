@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Objects;
 
 
 /** The type File utils. */
@@ -34,5 +35,14 @@ public final class FileUtils {
      */
     public static boolean isFileExist(final String filepath) {
         return new File(filepath).exists();
+    }
+
+    /**
+     * Gets file.
+     * @param pathToFile the path to file
+     */
+    public static void getFile(final String pathToFile) {
+        System.setProperty("webdriver.chrome.driver", Objects.requireNonNull(Objects.requireNonNull(FileUtils.class
+                .getClassLoader().getResource(pathToFile)).getFile()));
     }
 }

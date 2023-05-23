@@ -32,7 +32,7 @@ public class TestListener implements TestWatcher {
         driver.quit();
         try {
             FileUtils.writeLine(context.getDisplayName().substring(0, context.getDisplayName().length() - 2),
-                    "failedTests.txt");
+                    "failedTests");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

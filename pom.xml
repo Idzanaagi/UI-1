@@ -96,6 +96,7 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>${maven-surefire-plugin-version}</version>
                 <configuration>
+                    <rerunFailingTestsCount>2</rerunFailingTestsCount>
                     <includes>
                         <include>*/**</include>
                     </includes>

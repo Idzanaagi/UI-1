@@ -18,7 +18,7 @@ import java.util.Optional;
 /** The type Test listener. */
 public class TestListener implements TestWatcher {
 
-    /** Override testFailed. Attach a screenshot to the report. */
+    /** Override testFailed. Attach a screenshot to the report. Writes the names of failed methods to the file*/
     @Override
     public void testFailed(final ExtensionContext context, final Throwable cause) {
         File screenshotAs = null;
@@ -30,6 +30,12 @@ public class TestListener implements TestWatcher {
             throw new RuntimeException(e);
         }
         driver.quit();
+        try {
+            FileUtils.writeLine(context.getDisplayName().substring(0, context.getDisplayName().length() - 2),
+                    "failedTests.txt");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     /** Override testDisabled, driver close. */

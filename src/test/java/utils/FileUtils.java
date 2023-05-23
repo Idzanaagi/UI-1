@@ -1,9 +1,6 @@
 package utils;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.Objects;
 
 
@@ -44,5 +41,19 @@ public final class FileUtils {
     public static void getFile(final String pathToFile) {
         System.setProperty("webdriver.chrome.driver", Objects.requireNonNull(Objects.requireNonNull(FileUtils.class
                 .getClassLoader().getResource(pathToFile)).getFile()));
+    }
+
+    /**
+     * Write line.
+     * @param value the value to be written to the file
+     * @param filepath the path to the file where to write the value
+     * @throws IOException the io exception
+     */
+    public static void writeLine(final String value, final String filepath) throws IOException {
+        try (FileWriter fileWriter = new FileWriter(filepath, true)) {
+            fileWriter.append(value);
+            fileWriter.append("\n");
+            fileWriter.flush();
+        }
     }
 }

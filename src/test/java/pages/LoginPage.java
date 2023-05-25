@@ -174,8 +174,8 @@ public class LoginPage extends BasePage {
     /** Remove focus from username field with js. */
     @Step("remove the focus from the Username field with JS")
     public void removeFocusFromUsernameField() {
-        JavaScriptExecutor ja = new JavaScriptExecutor(driver);
-        ja.blurElement(usernameField);
+        JavaScriptExecutor js = new JavaScriptExecutor(driver);
+        js.blurElement(usernameField);
     }
 
     /**

@@ -1,13 +1,14 @@
 package base;
 
-import factory.DriverFactoryManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.openqa.selenium.WebDriver;
 
+import java.net.MalformedURLException;
 import java.time.Duration;
 
 import utils.TestListener;
+import factory.DriverManager;
 
 import static factory.props.ConfigurationManager.configuration;
 
@@ -22,9 +23,9 @@ public class BaseTest {
      * Sets .
      */
     @BeforeEach
-    public void setup() {
+    public void setup() throws MalformedURLException {
         final int durationSeconds = 10;
-        driver = DriverFactoryManager.getFactory().createDriverInstance(configuration().operatingSystem());
+        driver = DriverManager.createDriver(configuration().remote(), configuration().browser());
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(durationSeconds));
     }
 

@@ -1,1 +1,1 @@
-java -Dwebdriver.chrome.driver=.\src\main\resources\drivers\chromedriver.exe -jar .\src\main\resources\selenium-server\selenium-server-4.9.0.jar node
+java -Dwebdriver.gecko.driver=.\src\main\resources\drivers\geckodriver.exe -Dwebdriver.chrome.driver=.\src\main\resources\drivers\chromedriver.exe -Dwebdriver.opera.driver=.\src\main\resources\drivers\operadriver.exe -Dwebdriver.edge.driver=.\src\main\resources\drivers\msedgedriver.exe -Dwebdriver.ie.driver=.\src\main\resources\drivers\IEDriverServer.exe -jar .\src\main\resources\selenium-server\selenium-server-4.9.0.jar node

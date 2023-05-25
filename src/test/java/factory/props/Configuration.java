@@ -15,8 +15,8 @@ public interface Configuration extends Config {
      * Target string.
      * @return the string
      */
-    @Key("env")
-    String env();
+    @Key("remote")
+    Boolean remote();
 
     /**
      * Operating System string.
@@ -52,4 +52,11 @@ public interface Configuration extends Config {
      */
     @Key("gridPort")
     String gridPort();
+
+    /**
+     * Browser string.
+     * @return the string
+     */
+    @Key("browser")
+    String browser();
 }

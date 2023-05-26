@@ -1,13 +1,24 @@
 package factory;
 
+import org.openqa.selenium.MutableCapabilities;
 import org.openqa.selenium.WebDriver;
 
+import java.net.MalformedURLException;
+
+/**
+ * The interface Driver factory.
+ */
 public interface DriverFactory {
+    /**
+     * Create webdriver webdriver.
+     * @return the web driver
+     * @throws MalformedURLException the malformed url exception
+     */
+    WebDriver createWebDriver() throws MalformedURLException;
 
     /**
-     * Create instance web driver.
-     * @param operatingSystem the browser
-     * @return the web driver
+     * Create capabilities mutable capabilities.
+     * @return the mutable capabilities
      */
-    WebDriver createDriverInstance(String operatingSystem);
+    MutableCapabilities createCapabilities();
 }

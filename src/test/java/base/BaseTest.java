@@ -20,7 +20,8 @@ public class BaseTest {
     private WebDriver driver;
 
     /**
-     * Sets .
+     * Sets driver.
+     * @throws MalformedURLException the malformed url exception
      */
     @BeforeEach
     public void setup() throws MalformedURLException {

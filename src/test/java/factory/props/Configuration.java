@@ -19,27 +19,6 @@ public interface Configuration extends Config {
     Boolean remote();
 
     /**
-     * Operating System string.
-     * @return the string
-     */
-    @Key("operatingSystem")
-    String operatingSystem();
-
-    /**
-     * Linux chrome driver path string.
-     * @return the string
-     */
-    @Key("linuxChromeDriverPath")
-    String linuxChromeDriverPath();
-
-    /**
-     * Windows chrome driver path string.
-     * @return the string
-     */
-    @Key("windowsChromeDriverPath")
-    String windowsChromeDriverPath();
-
-    /**
      * Grid url string.
      * @return the string
      */

@@ -1,4 +1,4 @@
-filepath="failedTests.txt"
+filepath="failedTests"
 testclass="*Test#"
 script=""
 for var in $(cat $filepath)

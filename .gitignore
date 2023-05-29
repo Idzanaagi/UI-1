@@ -6,7 +6,7 @@ target/
 ### Local Files ###
 cookie.txt
 screenshot/tmp.png
-failedTests.txt
+failedTests
 
 ### IntelliJ IDEA ###
 .idea

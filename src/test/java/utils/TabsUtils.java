@@ -13,11 +13,10 @@ public class TabsUtils {
      * @param driver the driver
      * @param tabIndex the tab index
      */
-    public void switchTab(final WebDriver driver, final int tabIndex) throws Exception {
+    public static void switchTab(final WebDriver driver, final int tabIndex) throws Exception {
         if (driver.getWindowHandles().size() >= tabIndex) {
             driver.switchTo().window(driver.getWindowHandles().toArray()[tabIndex].toString());
-        }
-        else {
+        } else {
             throw new Exception("Trying to open a tab that does not exist");
         }
     }
@@ -27,7 +26,11 @@ public class TabsUtils {
      * @param driver     the driver
      * @param frameIndex the frame index
      */
-    public void switchFrame(final WebDriver driver, final int frameIndex) {
+    public static void switchFrame(final WebDriver driver, final int frameIndex) {
         driver.switchTo().frame(frameIndex);
+    }
+
+    private TabsUtils() {
+        throw new IllegalStateException("Utility class");
     }
 }

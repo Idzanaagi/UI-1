@@ -6,7 +6,7 @@ import org.openqa.selenium.WebDriver;
 /**
  * The type Tabs utils.
  */
-public class TabsUtils {
+public final class TabsUtils {
 
     /**
      * Switch tab.

@@ -25,9 +25,9 @@ public class Hooks {
      */
     @Before
     @Step("create webdriver")
-    public void setup() {
+    public void setup() throws MalformedURLException {
         WebDriverManager.getInstance(DriverManagerType.CHROME).setup();
-        driver = new ChromeDriver();
+        driver = DriverManager.createDriver(configuration().remote(), configuration().browser());
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
     }
 

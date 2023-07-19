@@ -28,6 +28,7 @@ public class ChromeDriverFactory implements DriverFactory {
     @Override
     public MutableCapabilities createCapabilities() {
         ChromeOptions chromeOptions = new ChromeOptions();
+        options.addArguments("--no-sandbox");
         chromeOptions.addArguments("--headless=new");
         chromeOptions.addArguments("--remote-allow-origins=*");
         return chromeOptions;

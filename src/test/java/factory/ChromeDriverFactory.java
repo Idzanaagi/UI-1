@@ -30,7 +30,7 @@ public class ChromeDriverFactory implements DriverFactory {
         ChromeOptions chromeOptions = new ChromeOptions();
         chromeOptions.addArguments("--no-sandbox");
         chromeOptions.addArguments("--disable-dev-shm-usage");
-        // chromeOptions.addArguments("--headless=new");
+        chromeOptions.addArguments("--headless=new");
         // chromeOptions.addArguments("--remote-allow-origins=*");
         return chromeOptions;
     }

@@ -29,9 +29,9 @@ public class ChromeDriverFactory implements DriverFactory {
     public MutableCapabilities createCapabilities() {
         ChromeOptions chromeOptions = new ChromeOptions();
         chromeOptions.addArguments("--no-sandbox");
-        chromeOptions.addArguments("--headless=new");
-        chromeOptions.addArguments("--remote-allow-origins=*");
         chromeOptions.addArguments("--disable-dev-shm-usage");
+        // chromeOptions.addArguments("--headless=new");
+        // chromeOptions.addArguments("--remote-allow-origins=*");
         return chromeOptions;
     }
 }

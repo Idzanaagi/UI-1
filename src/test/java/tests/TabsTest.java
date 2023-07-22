@@ -32,6 +32,7 @@ public class TabsTest extends BaseTest {
         TabsPage tabsPage = new TabsPage(getDriver());
         BasePage basePage = new BasePage(getDriver());
         DefaultHtmlPage defaultHtmlPage = new DefaultHtmlPage(getDriver());
+        int tabsCount = 3;
         basePage.launch("http://way2automation.com/way2auto_jquery/frames-and-windows.php");
         switchFrame(getDriver(), 0);
         tabsPage.clickNewTabLink();
@@ -40,7 +41,7 @@ public class TabsTest extends BaseTest {
         switchTab(getDriver(), 2);
         Assertions.assertEquals("https://way2automation.com/way2auto_jquery/frames-windows/defult1.html#",
                 getDriver().getCurrentUrl(), "expected and received url did not match");
-        Assertions.assertEquals(3, getDriver().getWindowHandles().size(),
+        Assertions.assertEquals(tabsCount, getDriver().getWindowHandles().size(),
                 "expected and received number of opened tabs will not match");
     }
 }

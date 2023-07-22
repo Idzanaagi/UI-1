@@ -129,16 +129,16 @@ public class LoginTest extends BaseTest {
     }
 
     /** Password error message with invalid length values. */
-    // @Test
-    // @Feature("Error message")
-    // @Story("User filled the Password field with too short a value")
-    // @Severity(SeverityLevel.MINOR)
-    // public void passwordErrorMessageWithInvalidLengthValues() {
-    //     LoginPage loginPage = new LoginPage(getDriver());
-    //     loginPage.fillPassword(readProperty("invalidLengthValue"));
-    //     Assertions.assertEquals("Your password must be between 3 and 100 characters long", loginPage.getPasswordFieldMessage(),
-    //             "error message doesn't contain the expected text");
-    // }
+     @Test
+     @Feature("Error message")
+     @Story("User filled the Password field with too short a value")
+     @Severity(SeverityLevel.MINOR)
+     public void passwordErrorMessageWithInvalidLengthValues() {
+         LoginPage loginPage = new LoginPage(getDriver());
+         loginPage.fillPassword(readProperty("invalidLengthValue"));
+         Assertions.assertEquals("Your password must be between 3 and 100 characters long", loginPage.getPasswordFieldMessage(),
+                 "error message doesn't contain the expected text");
+     }
 
     /** Username description error color with invalid length values. */
     @Test
@@ -191,15 +191,15 @@ public class LoginTest extends BaseTest {
     }
 
     /** Hint to empty password field. */
-    // @Test
-    // @Feature("Field tip")
-    // @Story("User hasn't yet entered a value in the Password field")
-    // @Severity(SeverityLevel.MINOR)
-    // public void hintToEmptyPasswordField() {
-    //     LoginPage loginPage = new LoginPage(getDriver());
-    //     Assertions.assertEquals("You did not enter a password", loginPage.getPasswordFieldMessage(),
-    //             "the hint text doesn't match");
-    // }
+     @Test
+     @Feature("Field tip")
+     @Story("User hasn't yet entered a value in the Password field")
+     @Severity(SeverityLevel.MINOR)
+     public void hintToEmptyPasswordField() {
+         LoginPage loginPage = new LoginPage(getDriver());
+         Assertions.assertEquals("You did not enter a password", loginPage.getPasswordFieldMessage(),
+                 "the hint text doesn't match");
+     }
 
     /** Hint to empty username description field. */
     @Test

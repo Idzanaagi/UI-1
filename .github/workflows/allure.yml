@@ -1,6 +1,8 @@
-name: allure-junit5-maven
+name: build project, run tests, create allure report
 
-on: [ push ]
+on:
+  push:
+    branches: [ "main" ]
 
 jobs:
   build:

@@ -19,8 +19,7 @@ public final class StringUtils {
         }
         if (url.matches("^www.*")) {
             return "http://" + login + ":" + password + "@" + url;
-        }
-        else {
+        } else {
             throw new Exception("invalid url");
         }
     }

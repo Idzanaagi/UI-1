@@ -3,8 +3,6 @@ package cucumber.steps;
 import factory.DriverManager;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
-import io.github.bonigarcia.wdm.WebDriverManager;
-import io.github.bonigarcia.wdm.config.DriverManagerType;
 import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 
@@ -29,7 +27,6 @@ public class Hooks {
     @Before
     @Step("create webdriver")
     public void setup() throws MalformedURLException {
-        // WebDriverManager.getInstance(DriverManagerType.CHROME).setup();
         final int durationSeconds = 10;
         driver = DriverManager.createDriver(configuration().remote(), configuration().browser());
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(durationSeconds));

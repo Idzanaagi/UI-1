@@ -20,7 +20,7 @@ public class BasicAuthTest extends BaseTest {
     public void basicAuth() throws Exception {
         BasicAuthPage basicAuthPage = new BasicAuthPage(getDriver());
         BasePage basePage = new BasePage(getDriver());
-        basePage.launch(createBasicAuthUrl( "httpwatch", "httpwatch", "www.httpwatch.com/httpgallery/authentication/"));
+        basePage.launch(createBasicAuthUrl("httpwatch", "httpwatch", "www.httpwatch.com/httpgallery/authentication/"));
         basicAuthPage.clickDisplayImageLink();
         Assertions.assertNotNull(basicAuthPage.hasSrcAttr(), "attribute src not found");
     }

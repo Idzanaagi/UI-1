@@ -69,7 +69,7 @@ jobs:
           password: ${{ secrets.EMAIL_PASSWORD }}
           subject: ${{ github.job }} job of ${{ github.repository }} has ${{ job.status }}
           html_body: FROM GITHUB ACTIONS <br> ${{ github.job }} job in worflow ${{ github.workflow }} of ${{ github.repository }} has <b> ${{ job.status }} </b> <br> ALL TESTS COUNT IS <b> "${{steps.report.outputs.total}}" </b> FAILED TESTS IS <b> "${{steps.report.outputs.failed}}" </b> PASS TESTS IS <b> "${{steps.report.outputs.passed}}" </b>
-          to: ${{ secrets.EMAIL_USERNAME }}
+          to: ${{ secrets.EMAIL_USERNAME }}, ${{ secrets.EMAIL_2 }}
           attachments:  allure-report.zip
           convert_markdown: true
           from: Idzanaagi

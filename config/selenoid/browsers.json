@@ -1,0 +1,24 @@
+{
+  "chrome": {
+    "default": "115",
+    "versions": {
+      "115": {
+        "port": "4444",
+        "image": "selenoid/chrome:115.0",
+        "additionalNetworks": ["ui-test_selenoid"],
+        "path": "/"
+      }
+    }
+  },
+  "firefox": {
+    "default": "115",
+    "versions": {
+      "115": {
+        "port": "4444",
+        "image": "selenoid/firefox:115.0",
+        "additionalNetworks": ["ui-test_selenoid"],
+        "path": "/wd/hub/"
+      }
+    }
+  }
+}

@@ -42,7 +42,7 @@ public final class DriverManager {
                 throw new IllegalStateException("Unexpected value: " + browser);
         }
         if (isRemote) {
-            String gridURL = String.format("http://%s:%s", configuration().gridUrl(), configuration().gridPort());
+            String gridURL = String.format("http://%s:%s", configuration().gridUrl(), configuration().gridPort() + "/wd/hub/");
             return new RemoteWebDriver(new URL(gridURL), factory.createCapabilities());
         } else {
             return factory.createWebDriver();

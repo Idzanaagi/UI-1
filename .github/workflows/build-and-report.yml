@@ -1,0 +1,76 @@
+name: build_test_email-report
+
+on:
+  push:
+    branches: [ "ci-report" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up JDK 19
+        uses: actions/setup-java@v3
+        with:
+          java-version: '19'
+          distribution: 'temurin'
+
+      - name: Run Test
+        if: always()
+        run: mvn clean test
+        continue-on-error: true
+
+      - name: Get Allure history
+        uses: actions/checkout@v3
+        if: always()
+        continue-on-error: true
+        with:
+          ref: gh-pages
+          path: gh-pages
+
+      - name: Allure Report action from marketplace
+        uses: simple-elf/allure-report-action@master
+        if: always()
+        id: allure-report
+        with:
+          allure_results: allure-results
+          gh_pages: gh-pages
+          allure_report: allure-report
+          allure_history: allure-history
+
+      - name: Deploy report to Github Pages
+        if: always()
+        uses: peaceiris/actions-gh-pages@v2
+        env:
+          PERSONAL_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PUBLISH_BRANCH: gh-pages
+          PUBLISH_DIR: allure-history
+
+      - name: Generate junit report
+        id: report
+        uses: mikepenz/action-junit-report@v3
+        if: success() || failure()
+        with:
+          report_paths: '**/target/surefire-reports/TEST-*.xml'
+
+      - name: Zip allure-report
+        uses: montudor/action-zip@v1
+        with:
+          args: zip allure-report -r  allure-report/data
+
+      - name: Send email
+        uses: dawidd6/action-send-mail@v3
+        if: always()
+        with:
+          server_address: smtp.gmail.com
+          server_port: 465
+          username: ${{ secrets.EMAIL_USERNAME }}
+          password: ${{ secrets.EMAIL_PASSWORD }}
+          subject: ${{ github.job }} job of ${{ github.repository }} has ${{ job.status }}
+          html_body: FROM GITHUB ACTIONS <br> ${{ github.job }} job in worflow ${{ github.workflow }} of ${{ github.repository }} has <b> ${{ job.status }} </b> <br> ALL TESTS COUNT IS <b> "${{steps.report.outputs.total}}" </b> FAILED TESTS IS <b> "${{steps.report.outputs.failed}}" </b> PASS TESTS IS <b> "${{steps.report.outputs.passed}}" </b>
+          to: ${{ secrets.EMAIL_USERNAME }}, ${{ secrets.EMAIL_2 }}
+          attachments:  allure-report.zip
+          convert_markdown: true
+          from: Idzanaagi
+

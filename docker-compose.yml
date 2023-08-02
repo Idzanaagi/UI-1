@@ -1,0 +1,33 @@
+version: "3"
+
+services:
+  chrome:
+    image: selenoid/chrome:115.0
+
+  selenoid:
+    image: aerokube/selenoid:latest-release
+    container_name: selenoid
+    network_mode: bridge
+    ports:
+      - "4444:4444"
+    volumes:
+      - "./config/selenoid:/etc/selenoid:ro"
+      - "/var/run/docker.sock:/var/run/docker.sock"
+    command: ["-capture-driver-logs"]
+
+  selenoid-ui:
+    image: aerokube/selenoid-ui:latest-release
+    container_name: selenoid-ui
+    network_mode: bridge
+    ports:
+      - "8080:8080"
+    links:
+      - selenoid
+    depends_on:
+      - selenoid
+    command: ["--selenoid-uri", "http://selenoid:4444"]
+
+  tests:
+    network_mode: host
+    build:
+      dockerfile: Dockerfile

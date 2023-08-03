@@ -31,4 +31,4 @@ services:
     network_mode: host
     build:
       dockerfile: Dockerfile
-    context: .
+      context: .
